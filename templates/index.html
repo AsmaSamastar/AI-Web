@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.js"></script>
+    
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="https://samastar.co.uk/">Home</a></li>
+            <li><a href="Index.html">AI-1</a></li>
+            <li><a href="Index2.html">AI-2</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h1>BioprocessOptimizer</h1>
+        <p>What do you want to grow/produce?</p>
+        <form id="myForm">
+            <div class="optionContainer">
+                <div class="optionItem">
+                    <input type="radio" id="protein" name="option" value="Protein">
+                    <label for="protein">Protein</label>
+                    <input type="text" id="inputProtein" name="protein" placeholder="Enter protein name" class="extraInput">
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="enzyme" name="option" value="Enzyme">
+                    <label for="enzyme">Enzyme</label>
+                    <input type="text" id="inputEnzyme" name="enzyme" placeholder="Enter Enzyme name" class="extraInput">
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="antibody" name="option" value="Antibody">
+                    <label for="antibody">Antibody</label>
+                    <input type="text" id="inputAntibody" name="antibody" placeholder="Enter Antibody name" class="extraInput">
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="biofuel" name="option" value="Biofuel">
+                    <label for="biofuel">Biofuel</label>
+                    <input type="text" id="inputBiofuel" name="biofuel" placeholder="Enter Biofuel name" class="extraInput">
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="food" name="option" value="Food& beverage">
+                    <label for="food">Food & beverage</label>
+                    <input type="text" id="inputFood" name="food" placeholder="Enter food or beverage name" class="extraInput">
+                </div>
+                <div class="optionItem otherContainer">
+                    <input type="radio" id="otherCheck" name="option" value="Other">
+                    <label for="other">Other</label>
+                    <input type="text" id="inputOther" name="other" placeholder="Please specify" class="extraInput">
+                </div>
+            </div>
+        </form>
+
+        <div class="arrowContainer">
+            <span>&darr;</span>
+        </div>
+        <p>Cells</p>
+        <form id="cellForm">
+            <div class="optionContainer">
+                <div class="optionItem">
+                    <input type="radio" id="bacteria" name="cell" value="Bacteria E.Coli">
+                    <label for="bacteria">Bacteria E.Coli</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="yeast" name="cell" value="Yeast">
+                    <label for="yeast">Yeast</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="insect" name="cell" value="Insect cells">
+                    <label for="insect">Insect cells</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="mammalian" name="cell" value="Mammalian cells">
+                    <label for="mammalian">Mammalian cells</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="algae" name="cell" value="Algae">
+                    <label for="algae">Algae</label>
+                </div>
+                <div class="optionItem otherContainer">
+                    <input type="radio" id="otherCellCheck" name="cell" value="Other">
+                    <label for="otherCell">Other</label>
+                    <input type="text" id="inputOtherCell" name="otherCell" placeholder="Please specify" class="extraInput">
+                </div>
+            </div>
+        </form>
+
+        <div class="arrowContainer">
+            <span>&darr;</span>
+        </div>
+        <p>Strain</p>
+        <form id="strainForm">
+            <div class="optionContainer">
+                <div class="optionItem">
+                    <input type="radio" id="bl21" name="strain" value="BL21">
+                    <label for="bl21">BL21</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="bl21de3" name="strain" value="BL21 (DE3)">
+                    <label for="bl21de3">BL21 (DE3)</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="scerevisiae" name="strain" value="S. cerevisiae">
+                    <label for="Scerevisiae">S. cerevisiae</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="anyStrain" name="strain" value="Any strain">
+                    <label for="anyStrain">Any strain</label>
+                </div>
+                <div class="optionItem otherContainer">
+                    <input type="radio" id="otherStrainCheck" name="strain" value="Other">
+                    <label for="otherStrain">Other</label>
+                    <input type="text" id="inputOtherStrain" name="otherStrain" placeholder="Please specify" class="extraInput">
+                </div>
+            </div>
+        </form>
+    
+        <div class="arrowContainer">
+            <span>&darr;</span>
+        </div>
+        <p>What data do you want?</p>
+        <form id="dataForm">
+            <div class="optionContainer">
+                <div class="optionItem">
+                    <input type="radio" id="expressionMethods" name="data" value="Expression methods">
+                    <label for="expressionMethods">Expression methods</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="purificationMethods" name="data" value="Purification methods">
+                    <label for="purificationMethods">Purification methods</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="abstract" name="data" value="Abstract">
+                    <label for="abstract">Abstract</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="materials" name="data" value="Materials & manufacturers">
+                    <label for="materials">Materials & manufacturers</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="all" name="data" value="All">
+                    <label for="all">All</label>
+                </div>
+            </div>
+        </form>
+
+        <div class="arrowContainer">
+            <span>&darr;</span>
+        </div>
+        <p>Search papers published in</p>
+        <form id="publishDateForm">
+            <div class="optionContainer">
+                <div class="optionItem">
+                    <input type="radio" id="lastYear" name="publishDate" value="Last year">
+                    <label for="lastYear">Last year</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="last5Years" name="publishDate" value="Last 5 years">
+                    <label for="last5Years">Last 5 years</label>
+                </div>
+                <div class="optionItem">
+                    <input type="radio" id="all" name="publishDate" value="ALL">
+                    <label for="all">ALL</label>
+                </div>
+                <div class="optionItem otherContainer">
+                    <input type="radio" id="customDates" name="publishDate" value="Custom dates">
+                    <label for="customDates" id="customDatesLabel">Custom dates</label>
+                    <div id="datePickers">
+                        <input type="date" id="startDate">
+                        <input type="date" id="endDate">
+                        <button type="button" id="setDates">Set dates</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="arrowContainer">
+            <span>&darr;</span>
+        </div>
+        <p>End results/outputs</p>
+    </div>
+
+    <div class="contents">
+        
+        <table id="outputTable">
+            <!-- 表格的第一行 -->
+            <tr>
+                <td colspan="2">Paper</td> <!-- 这个单元格现在占据整个第一行 -->
+                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
+                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
+                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
+            </tr>
+            <!-- 表格的第二行 -->
+            <tr>
+                <td colspan="2">URL</td>
+                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
+                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
+                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
+            </tr>
+            <!-- 表格的第三行及其后的行 -->
+            <tr>
+                <td rowspan="19">Culturing Method</td>
+                <td>Strain</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Expression vector</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Promoter</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Inoculum / start culture</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Vessel (shake flasks, bioreactor/fermentor)</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Media</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Media volume</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>antibiotic</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Temperature</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Shaking speed</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Culturing time</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Optical density</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Glucose</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Proline</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Feeding</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>pH</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>pH control</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Aeration rate</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Dissolved oxygen</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+
+            <tr>
+                <td rowspan="6">Purification Method </td>
+                <td>Buffers</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Culture harvesting (Centrifugation speed)</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Cell lysis (sonication, homogenizer)</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Purification</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Chromatography columns</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            <tr>
+                <td>Yield</td>
+                <td>。。。</td>
+                <td>。。。</td>
+                <td>。。。</td>
+            </tr>
+            
+        </table>
+        
+
+        <button id="downloadBtn">Download Table as PDF</button>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+  

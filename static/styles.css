@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content, .contents {
+    width: 80%; 
+    text-align: center;
+    margin: auto; 
+}
+
+
+.content p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+
+.optionContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center; 
+    width: 100%;
+}
+
+
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%; 
+}
+
+#outputTable {
+    width: 100%;
+    border-collapse: separate;
+    border: 1px solid black;
+}
+
+#outputTable th,
+#outputTable td {
+    border: 1px solid black;
+}
+
+
+.extraInput {
+    display: none;
+}
+
+
+
+
+nav ul {
+    /* 在这里添加你的导航列表样式 */
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    /* 在这里添加你的列表项样式 */
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    /* 在这里添加你的链接样式 */
+    text-decoration: none;
+}
+
+
+/* 新增标题样式 */
+h3 {
+    margin-bottom: 5px;  /* 设置标题元素的下边距为10像素 */
+}
+
+/* 设置文本框的样式 */
+.textArea {
+    width: 70%; /* 宽度占据页面的60% */
+    height: 65vh; /* 高度占据页面的50% */
+    margin-top: 5px; /* 上边距为20像素，使其离上方的内容有一定的距离 */
+    resize: none; /* 禁止用户改变文本框的尺寸 */
+}
+.copyButton {
+    margin-top: 5px;
+}
+
+.arrowContainer{
+    margin-top: 10px;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+
+
+#summaryTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+#summaryTable td {
+    border: 1px solid black;
+    padding: 10px;
+}
