@@ -20,7 +20,7 @@
 
     <div class="pdfUploadContainer">
         <h2>Upload your PDF file</h2>
-        <form id="pdfUploadForm" action="http://34.94.73.227:5000/upload" method="post" enctype="multipart/form-data">
+        <form id="pdfUploadForm" action="http://0.0.0.0:8080/upload" method="post" enctype="multipart/form-data">
             <input type="file" id="pdfUpload" name="pdfUpload" accept=".pdf" multiple onchange="addMoreFiles()">
             <button type="button" id="addFilesButton">Add More Files</button>
         </form>
@@ -201,7 +201,7 @@
             return new Promise((resolve, reject) => {
                 var pdfText = texts[textIndex];
                 var promptObject = prompts[promptIndex];
-                fetch('http://34.94.73.227:5000/generateSummary', {
+                fetch('http://0.0.0.0:8080/generateSummary', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -261,7 +261,7 @@
             }
 
             // 使用fetch上传文件
-            fetch('http://34.94.73.227:5000/upload', {
+            fetch('http://0.0.0.0:8080/upload', {
                 method: 'POST',
                 body: formData
             })
