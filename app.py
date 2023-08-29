@@ -26,7 +26,7 @@ app.config['UPLOAD_FOLDER'] = 'uploads/'  # 设置上传文件的存储路径
 cors = CORS(app, resources={r"/*": {"origins": "*"}})  # 允许所有域名访问
 
 # 替换为你的OpenAI API key
-openai.api_key = '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'
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 max_length = 13000
 
