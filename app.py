@@ -173,7 +173,7 @@ def download_summaries():
     pdf.add_page()
 
     # 加载DejaVu字体
-    pdf.add_font('DejaVu', '', './font/DejaVuSansCondensed.ttf', uni=True)
+    pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', size=11)
 
     # 遍历所有摘要，并将它们添加到PDF文档中
