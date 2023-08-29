@@ -176,7 +176,7 @@ def download_summaries():
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', size=11)
 
-    cell_width = 100
+    cell_width = 80
     cell_height = 10
 
     # 遍历所有摘要，并将它们添加到PDF文档中
@@ -188,7 +188,7 @@ def download_summaries():
             # 添加标题和内容
             pdf.multi_cell(cell_width, cell_height, txt=title, border=1)
             # pdf.set_y(pdf.get_y() - cell_height) # 把Y坐标上移，因为multi_cell会自动换行
-            # pdf.set_x(cell_width) # 移动X坐标
+            pdf.set_x(cell_width) # 移动X坐标
             pdf.multi_cell(cell_width, cell_height, txt=content, border=1)
 
     # 保存PDF到临时文件
