@@ -3,10 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.js"></script>
-    
 </head>
 
 <body>
@@ -14,362 +13,297 @@
     <nav>
         <ul>
             <li><a href="https://samastar.co.uk/">Home</a></li>
-            <li><a href="Index.html">AI-1</a></li>
-            <li><a href="Index2.html">AI-2</a></li>
         </ul>
     </nav>
 
-    <div class="content">
-        <h1>BioprocessOptimizer</h1>
-        <p>What do you want to grow/produce?</p>
-        <form id="myForm">
-            <div class="optionContainer">
-                <div class="optionItem">
-                    <input type="radio" id="protein" name="option" value="Protein">
-                    <label for="protein">Protein</label>
-                    <input type="text" id="inputProtein" name="protein" placeholder="Enter protein name" class="extraInput">
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="enzyme" name="option" value="Enzyme">
-                    <label for="enzyme">Enzyme</label>
-                    <input type="text" id="inputEnzyme" name="enzyme" placeholder="Enter Enzyme name" class="extraInput">
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="antibody" name="option" value="Antibody">
-                    <label for="antibody">Antibody</label>
-                    <input type="text" id="inputAntibody" name="antibody" placeholder="Enter Antibody name" class="extraInput">
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="biofuel" name="option" value="Biofuel">
-                    <label for="biofuel">Biofuel</label>
-                    <input type="text" id="inputBiofuel" name="biofuel" placeholder="Enter Biofuel name" class="extraInput">
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="food" name="option" value="Food& beverage">
-                    <label for="food">Food & beverage</label>
-                    <input type="text" id="inputFood" name="food" placeholder="Enter food or beverage name" class="extraInput">
-                </div>
-                <div class="optionItem otherContainer">
-                    <input type="radio" id="otherCheck" name="option" value="Other">
-                    <label for="other">Other</label>
-                    <input type="text" id="inputOther" name="other" placeholder="Please specify" class="extraInput">
-                </div>
-            </div>
+    <div class="pdfUploadContainer">
+        <h2>Upload your PDF file</h2>
+        <form id="pdfUploadForm" action="https://coral-app-qzfcm.ondigitalocean.app/upload" method="post"
+            enctype="multipart/form-data">
+            <input type="file" id="pdfUpload" name="pdfUpload" accept=".pdf" multiple onchange="addMoreFiles()">
+            <button type="button" id="addFilesButton">Add More Files</button>
         </form>
 
-        <div class="arrowContainer">
-            <span>&darr;</span>
-        </div>
-        <p>Cells</p>
-        <form id="cellForm">
-            <div class="optionContainer">
-                <div class="optionItem">
-                    <input type="radio" id="bacteria" name="cell" value="Bacteria E.Coli">
-                    <label for="bacteria">Bacteria E.Coli</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="yeast" name="cell" value="Yeast">
-                    <label for="yeast">Yeast</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="insect" name="cell" value="Insect cells">
-                    <label for="insect">Insect cells</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="mammalian" name="cell" value="Mammalian cells">
-                    <label for="mammalian">Mammalian cells</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="algae" name="cell" value="Algae">
-                    <label for="algae">Algae</label>
-                </div>
-                <div class="optionItem otherContainer">
-                    <input type="radio" id="otherCellCheck" name="cell" value="Other">
-                    <label for="otherCell">Other</label>
-                    <input type="text" id="inputOtherCell" name="otherCell" placeholder="Please specify" class="extraInput">
-                </div>
-            </div>
-        </form>
-
-        <div class="arrowContainer">
-            <span>&darr;</span>
-        </div>
-        <p>Strain</p>
-        <form id="strainForm">
-            <div class="optionContainer">
-                <div class="optionItem">
-                    <input type="radio" id="bl21" name="strain" value="BL21">
-                    <label for="bl21">BL21</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="bl21de3" name="strain" value="BL21 (DE3)">
-                    <label for="bl21de3">BL21 (DE3)</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="scerevisiae" name="strain" value="S. cerevisiae">
-                    <label for="Scerevisiae">S. cerevisiae</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="anyStrain" name="strain" value="Any strain">
-                    <label for="anyStrain">Any strain</label>
-                </div>
-                <div class="optionItem otherContainer">
-                    <input type="radio" id="otherStrainCheck" name="strain" value="Other">
-                    <label for="otherStrain">Other</label>
-                    <input type="text" id="inputOtherStrain" name="otherStrain" placeholder="Please specify" class="extraInput">
-                </div>
-            </div>
-        </form>
-    
-        <div class="arrowContainer">
-            <span>&darr;</span>
-        </div>
-        <p>What data do you want?</p>
-        <form id="dataForm">
-            <div class="optionContainer">
-                <div class="optionItem">
-                    <input type="radio" id="expressionMethods" name="data" value="Expression methods">
-                    <label for="expressionMethods">Expression methods</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="purificationMethods" name="data" value="Purification methods">
-                    <label for="purificationMethods">Purification methods</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="abstract" name="data" value="Abstract">
-                    <label for="abstract">Abstract</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="materials" name="data" value="Materials & manufacturers">
-                    <label for="materials">Materials & manufacturers</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="all" name="data" value="All">
-                    <label for="all">All</label>
-                </div>
-            </div>
-        </form>
-
-        <div class="arrowContainer">
-            <span>&darr;</span>
-        </div>
-        <p>Search papers published in</p>
-        <form id="publishDateForm">
-            <div class="optionContainer">
-                <div class="optionItem">
-                    <input type="radio" id="lastYear" name="publishDate" value="Last year">
-                    <label for="lastYear">Last year</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="last5Years" name="publishDate" value="Last 5 years">
-                    <label for="last5Years">Last 5 years</label>
-                </div>
-                <div class="optionItem">
-                    <input type="radio" id="all" name="publishDate" value="ALL">
-                    <label for="all">ALL</label>
-                </div>
-                <div class="optionItem otherContainer">
-                    <input type="radio" id="customDates" name="publishDate" value="Custom dates">
-                    <label for="customDates" id="customDatesLabel">Custom dates</label>
-                    <div id="datePickers">
-                        <input type="date" id="startDate">
-                        <input type="date" id="endDate">
-                        <button type="button" id="setDates">Set dates</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <div class="arrowContainer">
-            <span>&darr;</span>
-        </div>
-        <p>End results/outputs</p>
+        <!-- 新增元素显示选择的文件名 -->
+        <ul id="fileList"></ul>
     </div>
 
-    <div class="contents">
-        
-        <table id="outputTable">
-            <!-- 表格的第一行 -->
-            <tr>
-                <td colspan="2">Paper</td> <!-- 这个单元格现在占据整个第一行 -->
-                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
-                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
-                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
-            </tr>
-            <!-- 表格的第二行 -->
-            <tr>
-                <td colspan="2">URL</td>
-                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
-                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
-                <td>。。。</td> <!-- 这个空的单元格是用来保持表格对齐的 -->
-            </tr>
-            <!-- 表格的第三行及其后的行 -->
-            <tr>
-                <td rowspan="19">Culturing Method</td>
-                <td>Strain</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Expression vector</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Promoter</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Inoculum / start culture</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Vessel (shake flasks, bioreactor/fermentor)</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Media</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Media volume</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>antibiotic</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Temperature</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Shaking speed</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Culturing time</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Optical density</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Glucose</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Proline</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Feeding</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>pH</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>pH control</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Aeration rate</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Dissolved oxygen</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-
-            <tr>
-                <td rowspan="6">Purification Method </td>
-                <td>Buffers</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Culture harvesting (Centrifugation speed)</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Cell lysis (sonication, homogenizer)</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Purification</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Chromatography columns</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            <tr>
-                <td>Yield</td>
-                <td>。。。</td>
-                <td>。。。</td>
-                <td>。。。</td>
-            </tr>
-            
-        </table>
-        
-
-        <button id="downloadBtn">Download Table as PDF</button>
-
+    <div class="pdfUploadContainer">
+        <button type="button" id="uploadAndGenerateSummaryButton">Upload PDF and Generate Summary</button>
     </div>
 
-    <script src="main.js"></script>
+    <h3>PDF Text</h3> <!-- 新增标题 -->
+
+    <textarea id="output" class="textArea" readonly></textarea> <!-- 新增文本框 -->
+
+    <p id="fileIndex">0 / 0</p>
+
+    <div class="buttonContainer">
+        <button id="prevButton" class="copyButton">Previous</button>
+        <div class="spacer"></div>
+        <button id="nextButton" class="copyButton">Next</button>
+        <div class="spacer"></div>
+        <button id="copyButton" class="copyButton">Copy Text</button> <!-- 新增复制按钮 -->
+    </div>
+
+    <div class="arrowContainer">
+        <span>&darr;</span>
+    </div>
+
+    <h3>PDF Summary</h3>
+    <table id="summaryTable">
+    </table>
+
+    <!-- 添加元素来显示当前摘要的索引 -->
+    <p id="summaryIndex">0 / 0</p>
+
+    <!-- 为 PDF 摘要添加上一页和下一页的按钮 -->
+    <div class="buttonContainer">
+        <button id="prevSummaryButton" class="copyButton">Previous</button>
+        <div class="spacer"></div>
+        <button id="nextSummaryButton" class="copyButton">Next</button>
+        <div class="spacer"></div>
+        <button id="downloadButton" class="copyButton">Download Summary</button>
+    </div>
+
+    <textarea id="summary" style="display:none;"></textarea>
+
+
+    <script>
+
+        var currentTextIndex = 0;
+        var currentPromptIndex = 0;
+
+        // 定义一个数组来存储所有用户选择的文件
+        var allFiles = [];
+
+        // 新增函数来显示用户选择的文件名
+        function displayFileNames() {
+            var ul = document.getElementById('fileList');
+            ul.innerHTML = '';
+            for (var i = 0; i < allFiles.length; i++) {
+                var li = document.createElement('li');
+                li.innerHTML = allFiles[i].name;
+                ul.appendChild(li);
+            }
+        }
+
+        // 新增函数来添加更多文件
+        function addMoreFiles() {
+            var input = document.getElementById('pdfUpload');
+            for (var i = 0; i < input.files.length; i++) {
+                allFiles.push(input.files[i]);
+            }
+            displayFileNames();
+            input.value = '';
+        }
+
+        document.getElementById('addFilesButton').addEventListener('click', function () {
+            document.getElementById('pdfUpload').click();
+        });
+
+        // 存储所有的文本和当前显示的文本的索引
+        var texts = [];
+        var currentIndex = 0;
+
+        // 添加翻页按钮的事件处理器
+        document.getElementById('prevButton').addEventListener('click', function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                var outputTextarea = document.getElementById('output');
+                outputTextarea.value = texts[currentIndex];
+            }
+
+            document.getElementById('fileIndex').innerText = (currentIndex + 1) + ' / ' + texts.length;
+        });
+
+        document.getElementById('nextButton').addEventListener('click', function () {
+            if (currentIndex < texts.length - 1) {
+                currentIndex++;
+                var outputTextarea = document.getElementById('output');
+                outputTextarea.value = texts[currentIndex];
+            }
+
+            document.getElementById('fileIndex').innerText = (currentIndex + 1) + ' / ' + texts.length;
+        });
+
+
+        // 实现复制按钮的功能
+        document.getElementById('copyButton').addEventListener('click', function () {
+            var copyText = document.getElementById("output");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Text has been copied");
+        });
+
+        // 定义一个数组来存储所有的摘要
+        var summaries = [];
+        var currentSummaryIndex = 0;
+
+        function updateSummaryDisplay() {
+            var summaryTextarea = document.getElementById('summary');
+            var currentSummary = summaries[currentSummaryIndex];
+            summaryTextarea.value = currentSummary.map(s => s.title + ': ' + s.content).join('\n');
+            summaryTable.innerHTML = '';
+
+            var currentSummary = summaries[currentSummaryIndex];
+            if (currentSummary) {
+                currentSummary.forEach(function (summary) {
+                    var row = summaryTable.insertRow(-1);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerText = summary.title;
+                    cell2.innerText = summary.content;
+                });
+
+                // 更新摘要索引
+                document.getElementById('summaryIndex').innerText = (currentSummaryIndex + 1) + ' / ' + summaries.length;
+            }
+        }
+
+        // 更新翻页按钮的事件处理器
+        document.getElementById('prevSummaryButton').addEventListener('click', function () {
+            if (currentSummaryIndex > 0) {
+                currentSummaryIndex--;
+                updateSummaryDisplay(); // 调用新的更新函数
+            }
+        });
+
+        document.getElementById('nextSummaryButton').addEventListener('click', function () {
+            if (currentSummaryIndex < summaries.length - 1) {
+                currentSummaryIndex++;
+                updateSummaryDisplay(); // 调用新的更新函数
+            }
+        });
+
+        var prompts = [
+            { title: 'Title', prompt: 'What is the title of the content? Please return the title only' },
+            { title: 'Author', prompt: 'List the names of the authors from the content. Please return the name only.' },
+            { title: 'Summarising culturing conditions', prompt: 'summarize content from the Materials and methods under cell culture section in the text and provide cell culture conditions of the inoculum or start culture and culture conditions in the fermentor / bioreactor if applicable' },
+            { title: 'Summarise purification conditions', prompt: 'extract content from the Materials and methods section in the text and provide in details cell purification conditions and mention all steps, chemicals, buffers used with quantities. steps may include: isolation and dissolution of inclusion bodies, renaturation, trypsinization, precipitation, chromatography, HPLC , and any other reactions used - summarise them in order and exclude cell culture conditions' },
+            { title: 'Extracting material and manufacturers', prompt: 'summarize content from the materials section in the text and provide bullet points about: names of Materials and chemicals used and names of manufacturer for each one. Example: Antifoam from Sigma L-proline from Sigma EDTA from Sigma. And Only Keep the manufacturer company names and remove all "manufacturer" words if it exists and if it is repeated in each line' },
+
+            // 添加更多prompt和标题...
+        ];
+
+        function generateSingleSummary(textIndex, promptIndex) {
+            return new Promise((resolve, reject) => {
+                var pdfText = texts[textIndex];
+                var promptObject = prompts[promptIndex];
+                fetch('https://coral-app-qzfcm.ondigitalocean.app/generateSummary', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'text': pdfText,
+                        'prompt': promptObject.prompt
+                    })
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        resolve({ textIndex: textIndex, summary: { title: promptObject.title, content: json.summary } });
+                    })
+                    .catch(error => reject(error));
+            });
+        }
+
+        // 新的生成摘要函数，提取自旧的摘要生成按钮的事件处理器
+        function generateSummaries() {
+            // 这里是之前在摘要生成按钮的事件处理器中的代码
+            // ...
+            summaries = new Array(texts.length); // 创建一个新数组来存储摘要
+            for (let i = 0; i < texts.length; i++) {
+                summaries[i] = []; // 每个文本的摘要都存储在一个独立的数组中
+            }
+            var summaryTable = document.getElementById('summaryTable');
+            summaryTable.innerHTML = '';
+
+            var summaryPromises = [];
+
+            // 创建摘要的Promise
+            for (let textIndex = 0; textIndex < texts.length; textIndex++) {
+                for (let promptIndex = 0; promptIndex < prompts.length; promptIndex++) {
+                    summaryPromises.push(generateSingleSummary(textIndex, promptIndex));
+                }
+            }
+
+            // 并行执行所有摘要的生成
+            Promise.all(summaryPromises)
+                .then(results => {
+                    results.forEach(result => {
+                        // 将摘要添加到对应的文本摘要数组中
+                        summaries[result.textIndex].push(result.summary);
+                    });
+
+                    // 更新摘要显示
+                    updateSummaryDisplay();
+                })
+                .catch(error => console.error(error));
+        }
+
+        document.getElementById('uploadAndGenerateSummaryButton').addEventListener('click', function () {
+            // 创建并填充 FormData 对象
+            var formData = new FormData();
+            for (var i = 0; i < allFiles.length; i++) {
+                formData.append('pdfUpload', allFiles[i]);
+            }
+
+            // 使用fetch上传文件
+            fetch('https://coral-app-qzfcm.ondigitalocean.app/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(json => {
+                    // 上传成功后更新全局变量
+                    texts = json.texts;
+                    currentIndex = 0;
+
+                    // 将第一个文件的文本放入文本框
+                    var outputTextarea = document.getElementById('output');
+                    outputTextarea.value = texts[currentIndex];
+
+                    // 更新文件索引
+                    document.getElementById('fileIndex').innerText = '1 / ' + texts.length;
+
+                    // 在此处调用生成摘要的功能
+                    generateSummaries(); // 这是一个新的函数，用来封装生成摘要的代码
+                })
+                .catch(error => console.error(error));
+
+            // 清除文件名列表和摘要
+            document.getElementById('fileList').innerHTML = '';
+            allFiles = [];
+            summaries = [];
+        });
+
+        function downloadSummaries() {
+
+            fetch('/downloadSummaries', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'summaries': summaries
+                })
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    // 使用浏览器的下载功能
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'summaries.pdf';
+                    a.click();
+                })
+                .catch(error => console.error(error));
+        }
+
+        // 绑定到一个按钮或链接
+        document.getElementById('downloadButton').addEventListener('click', downloadSummaries);
+
+    </script>
+
 </body>
-</html>
-
-
-
-
-  
