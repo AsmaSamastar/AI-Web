@@ -191,7 +191,7 @@ def download_summaries():
 
             # 添加title和content
             for i, line in enumerate(title_lines):
-                pdf.cell(col_widths[0], 10, txt=line, border=1)
+                pdf.multi_cell(col_widths[0], 10, txt=line, border=1)
                 if i == 0:
                     pdf.multi_cell(col_widths[1], 10 * num_lines, txt=content, border=1)
                 else:
