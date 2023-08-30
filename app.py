@@ -186,17 +186,26 @@ def download_summaries():
             content = summary_group['content']
 
             # 计算内容的行数
-            title_lines = title.count('\n') + 1
-            content_lines = content.count('\n') + 1
+            title_lines = title.split('\n')
+            content_lines = content.split('\n')
 
             # 计算单元格的高度
-            cell_height = max(10, max(title_lines, content_lines) * 10)
+            num_lines = max(len(title_lines), len(content_lines))
+            cell_height = 10 * num_lines
 
-            # 添加标题和内容
-            pdf.multi_cell(cell_width, cell_height, txt=title, border=1)
-            pdf.set_y(pdf.get_y() - cell_height)  # 把Y坐标上移
-            pdf.set_x(cell_width + 10)  # 移动X坐标
-            pdf.multi_cell(cell_width, cell_height, txt=content, border=1)
+            # 为标题的每一行添加一个单元格
+            for line in title_lines:
+                pdf.cell(cell_width, 10, txt=line, border=1)
+                pdf.ln()
+
+            # 移动Y坐标到初始位置
+            pdf.set_y(pdf.get_y() - cell_height)
+
+            # 为内容的每一行添加一个单元格
+            for line in content_lines:
+                pdf.set_x(cell_width + 10)  # 移动X坐标
+                pdf.cell(cell_width, 10, txt=line, border=1)
+                pdf.ln()
 
     # 保存PDF到临时文件
     pdf_path = "temp_summaries.pdf"
