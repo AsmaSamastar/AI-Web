@@ -4,12 +4,16 @@ from pypdf import PdfReader
 from flask_cors import CORS
 from fpdf import FPDF
 import os
+import base64
 import openai
 from flask import jsonify  # 导入jsonify函数
 from flask import render_template
 from flask import Flask, request, send_file
 from werkzeug.utils import secure_filename
 from textwrap import wrap
+
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail, Email, Content, Attachment, FileContent, FileName, FileType, Disposition
 
 import tiktoken
 tokenizer = tiktoken.get_encoding("cl100k_base")
@@ -224,6 +228,111 @@ def download_summaries():
 
     # 发送PDF文件作为响应
     return send_file(f, as_attachment=True, download_name='summaries.pdf')
+
+def send_email_with_attachment(to_email, subject, content, pdf_path):
+    from_email = 'vivnaturelle@gmail.com'
+    
+    # Create message
+    message = Mail(
+        from_email=from_email,
+        to_emails=to_email,
+        subject=subject,
+        html_content=content)
+    
+    # Add attachment
+    with open(pdf_path, 'rb') as f:
+        data = f.read()
+        f.close()
+    encoded = base64.b64encode(data).decode()
+    attachedFile = Attachment(
+        FileContent(encoded),
+        FileName('summaries.pdf'),
+        FileType('application/pdf'),
+        Disposition('attachment'))
+    message.attachment = attachedFile
+
+    # Send email
+    try:
+        sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        return response.status_code, response.body, response.headers
+    except Exception as e:
+        print(str(e))
+        return None, None, None
+
+def create_pdf(pdf_path, summaries_data_list):
+    # 创建PDF文档
+    pdf = FPDF()
+    pdf.add_page()
+
+    # 加载DejaVu字体
+    pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
+
+    def split_text(text, max_width, font_size):
+        words = text.split(' ')
+        lines = []
+        line = ''
+        for word in words:
+            if pdf.get_string_width(line + word) < max_width:
+                line += ' ' + word
+            else:
+                lines.append(line)
+                line = word
+        lines.append(line)
+        return lines
+    
+    font_size = 11
+    pdf.set_font('DejaVu', size=font_size)
+
+    # 单元格宽度
+    col_widths = [80, 110]
+    max_width = col_widths[0] - 2  # 留出一点边距
+
+    # 遍历所有摘要，并将它们添加到PDF文档中
+    for summaries_data in summaries_data_list:
+        for summary_group in summaries_data:
+            title = summary_group['title']
+            content = summary_group['content']
+
+            # 将title拆分为多行
+            title_lines = split_text(title, max_width, font_size)
+            num_lines = len(title_lines)
+
+            # 添加title和content
+            for i, line in enumerate(title_lines):
+                pdf.cell(col_widths[0], 10, txt=line, border=1)
+                if i == 0:
+                    pdf.multi_cell(
+                        col_widths[1], 10 * num_lines, txt=content, border=1)
+                else:
+                    pdf.cell(col_widths[1], 10, txt='', border=1)
+                pdf.ln()
+
+    # 保存PDF到临时文件
+    pdf.output(pdf_path)
+
+@app.route('/sendEmail', methods=['POST'])
+def send_email():
+    # 从请求中获取数据
+    data = request.json
+    name = data['name']
+    email = data['email']
+    summaries_data_list = data['summaries']
+
+    # 创建 PDF 文件
+    pdf_path = "temp_summaries.pdf"
+    create_pdf(pdf_path, summaries_data_list)
+
+    # 发送电子邮件
+    subject = "Your PDF Summary"
+    content = "Hello " + name + ",\n\nHere is your PDF summary."
+    status, _, _ = send_email_with_attachment(email, subject, content, pdf_path)
+
+    # 删除临时 PDF 文件
+    if status == 202:  # 只有在电子邮件发送成功时删除临时文件
+        os.remove(pdf_path)
+
+    return jsonify({'status': 'ok'})
 
 
 if __name__ == '__main__':

@@ -64,6 +64,21 @@
         <button id="nextSummaryButton" class="copyButton">Next</button>
         <div class="spacer"></div>
         <button id="downloadButton" class="copyButton">Download Summary</button>
+        <div class="spacer"></div>
+        <button id="sendEmailButton">Send Summary</button>
+    </div>
+
+    <div id="emailPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="document.getElementById('emailPopup').style.display='none'">&times;</span>
+            <form id="emailForm">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br>
+                <input type="submit" value="Send">
+            </form>
+        </div>
     </div>
 
     <textarea id="summary" style="display:none;"></textarea>
@@ -303,6 +318,39 @@
 
         // 绑定到一个按钮或链接
         document.getElementById('downloadButton').addEventListener('click', downloadSummaries);
+
+        document.getElementById('sendEmailButton').addEventListener('click', function () {
+            document.getElementById('emailPopup').style.display = 'block';
+        });
+
+        function sendEmail() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+
+            fetch('/sendEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'name': name,
+                    'email': email,
+                    'summaries': summaries
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    document.getElementById('emailPopup').style.display = 'none';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        document.getElementById('emailForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            sendEmail();
+        });
+
 
     </script>
 
