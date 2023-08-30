@@ -176,8 +176,11 @@ def download_summaries():
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', size=11)
 
-    # 定义单元格的宽度
-    cell_width = 190 / 2  # 平分PDF的宽度
+    # 添加表头
+    col_widths = [40, 150]
+    pdf.cell(col_widths[0], 10, txt="Title", border=1)
+    pdf.cell(col_widths[1], 10, txt="Content", border=1)
+    pdf.ln()
 
     # 遍历所有摘要，并将它们添加到PDF文档中
     for summaries_data in summaries_data_list:
@@ -185,27 +188,9 @@ def download_summaries():
             title = summary_group['title']
             content = summary_group['content']
 
-            # 计算内容的行数
-            title_lines = title.split('\n')
-            content_lines = content.split('\n')
-
-            # 计算单元格的高度
-            num_lines = max(len(title_lines), len(content_lines))
-            cell_height = 10 * num_lines
-
-            # 为标题的每一行添加一个单元格
-            for line in title_lines:
-                pdf.cell(cell_width, 10, txt=line, border=1)
-                pdf.ln()
-
-            # 移动Y坐标到初始位置
-            pdf.set_y(pdf.get_y() - cell_height)
-
-            # 为内容的每一行添加一个单元格
-            for line in content_lines:
-                pdf.set_x(cell_width + 10)  # 移动X坐标
-                pdf.cell(cell_width, 10, txt=line, border=1)
-                pdf.ln()
+            pdf.cell(col_widths[0], 10, txt=title, border=1)  # 添加标题
+            pdf.multi_cell(col_widths[1], 10, txt=content, border=1)  # 添加内容
+            pdf.ln()
 
     # 保存PDF到临时文件
     pdf_path = "temp_summaries.pdf"
@@ -216,6 +201,7 @@ def download_summaries():
 
     # 发送PDF文件作为响应
     return send_file(f, as_attachment=True, download_name='summaries.pdf')
+
 
 
 if __name__ == '__main__':
