@@ -163,6 +163,19 @@ def extract_text_from_pdf(file_path):
     return text
 
 
+def split_text(text, max_width, font_size):
+    words = text.split(' ')
+    lines = []
+    line = ''
+    for word in words:
+        if pdf.get_string_width(line + word) < max_width:
+            line += ' ' + word
+        else:
+            lines.append(line)
+            line = word
+    lines.append(line)
+    return lines
+
 @app.route('/downloadSummaries', methods=['POST'])
 def download_summaries():
     # 从请求中获取摘要内容
@@ -177,7 +190,8 @@ def download_summaries():
     pdf.set_font('DejaVu', size=11)
 
     # 单元格宽度
-    col_widths = [90, 100]
+    col_widths = [80, 110]
+    max_width = col_widths[0] - 2  # 留出一点边距
 
     # 遍历所有摘要，并将它们添加到PDF文档中
     for summaries_data in summaries_data_list:
@@ -185,8 +199,8 @@ def download_summaries():
             title = summary_group['title']
             content = summary_group['content']
 
-            # 计算title的行数
-            title_lines = title.split('\n')
+            # 将title拆分为多行
+            title_lines = split_text(title, max_width, font_size)
             num_lines = len(title_lines)
 
             # 添加title和content
