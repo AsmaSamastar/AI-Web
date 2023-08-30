@@ -163,19 +163,6 @@ def extract_text_from_pdf(file_path):
     return text
 
 
-def split_text(text, max_width, font_size):
-    words = text.split(' ')
-    lines = []
-    line = ''
-    for word in words:
-        if pdf.get_string_width(line + word) < max_width:
-            line += ' ' + word
-        else:
-            lines.append(line)
-            line = word
-    lines.append(line)
-    return lines
-
 @app.route('/downloadSummaries', methods=['POST'])
 def download_summaries():
     # 从请求中获取摘要内容
@@ -186,8 +173,22 @@ def download_summaries():
     pdf.add_page()
 
     # 加载DejaVu字体
-    font_size = 11
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
+
+    def split_text(text, max_width, font_size):
+        words = text.split(' ')
+        lines = []
+        line = ''
+        for word in words:
+            if pdf.get_string_width(line + word) < max_width:
+                line += ' ' + word
+            else:
+                lines.append(line)
+                line = word
+        lines.append(line)
+        return lines
+    
+    font_size = 11
     pdf.set_font('DejaVu', size=font_size)
 
     # 单元格宽度
@@ -208,7 +209,8 @@ def download_summaries():
             for i, line in enumerate(title_lines):
                 pdf.cell(col_widths[0], 10, txt=line, border=1)
                 if i == 0:
-                    pdf.multi_cell(col_widths[1], 10 * num_lines, txt=content, border=1)
+                    pdf.multi_cell(
+                        col_widths[1], 10 * num_lines, txt=content, border=1)
                 else:
                     pdf.cell(col_widths[1], 10, txt='', border=1)
                 pdf.ln()
