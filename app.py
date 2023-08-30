@@ -177,7 +177,7 @@ def download_summaries():
     pdf.set_font('DejaVu', size=11)
 
     # 单元格宽度
-    col_widths = [60, 130]
+    col_widths = [90, 100]
 
     # 遍历所有摘要，并将它们添加到PDF文档中
     for summaries_data in summaries_data_list:
@@ -191,7 +191,7 @@ def download_summaries():
 
             # 添加title和content
             for i, line in enumerate(title_lines):
-                pdf.multi_cell(col_widths[0], 10, txt=line, border=1)
+                pdf.cell(col_widths[0], 10, txt=line, border=1)
                 if i == 0:
                     pdf.multi_cell(col_widths[1], 10 * num_lines, txt=content, border=1)
                 else:
@@ -207,7 +207,6 @@ def download_summaries():
 
     # 发送PDF文件作为响应
     return send_file(f, as_attachment=True, download_name='summaries.pdf')
-
 
 
 if __name__ == '__main__':
