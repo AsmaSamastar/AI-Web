@@ -176,8 +176,8 @@ def download_summaries():
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', size=11)
 
-    cell_width = 80
-    cell_height = 10
+    # 定义单元格的宽度
+    cell_width = 190 / 2  # 平分PDF的宽度
 
     # 遍历所有摘要，并将它们添加到PDF文档中
     for summaries_data in summaries_data_list:
@@ -185,10 +185,17 @@ def download_summaries():
             title = summary_group['title']
             content = summary_group['content']
 
+            # 计算内容的行数
+            title_lines = title.count('\n') + 1
+            content_lines = content.count('\n') + 1
+
+            # 计算单元格的高度
+            cell_height = max(10, max(title_lines, content_lines) * 10)
+
             # 添加标题和内容
             pdf.multi_cell(cell_width, cell_height, txt=title, border=1)
-            # pdf.set_y(pdf.get_y() - cell_height) # 把Y坐标上移，因为multi_cell会自动换行
-            pdf.set_x(cell_width) # 移动X坐标
+            pdf.set_y(pdf.get_y() - cell_height)  # 把Y坐标上移
+            pdf.set_x(cell_width + 10)  # 移动X坐标
             pdf.multi_cell(cell_width, cell_height, txt=content, border=1)
 
     # 保存PDF到临时文件
