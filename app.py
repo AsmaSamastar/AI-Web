@@ -176,11 +176,8 @@ def download_summaries():
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('DejaVu', size=11)
 
-    # 添加表头
-    col_widths = [40, 150]
-    pdf.cell(col_widths[0], 10, txt="Title", border=1)
-    pdf.cell(col_widths[1], 10, txt="Content", border=1)
-    pdf.ln()
+    # 单元格宽度
+    col_widths = [60, 130]
 
     # 遍历所有摘要，并将它们添加到PDF文档中
     for summaries_data in summaries_data_list:
@@ -188,9 +185,16 @@ def download_summaries():
             title = summary_group['title']
             content = summary_group['content']
 
-            pdf.cell(col_widths[0], 10, txt=title, border=1)  # 添加标题
-            pdf.multi_cell(col_widths[1], 10, txt=content, border=1)  # 添加内容
-            pdf.ln()
+            # 计算title的高度
+            lines = pdf.multi_cell(col_widths[0], 10, txt=title, align='L', border=1).split('\n')
+            title_height = 10 * len(lines)
+
+            # 在下一个单元格位置绘制content和边框
+            y = pdf.get_y()
+            pdf.multi_cell(col_widths[1], title_height, txt=content, border=1)
+
+            # 回到下一行的起始位置
+            pdf.set_xy(col_widths[0] + pdf.get_x(), y)
 
     # 保存PDF到临时文件
     pdf_path = "temp_summaries.pdf"
@@ -201,7 +205,6 @@ def download_summaries():
 
     # 发送PDF文件作为响应
     return send_file(f, as_attachment=True, download_name='summaries.pdf')
-
 
 
 if __name__ == '__main__':
