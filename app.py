@@ -186,8 +186,9 @@ def download_summaries():
     pdf.add_page()
 
     # 加载DejaVu字体
+    font_size = 11
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
-    pdf.set_font('DejaVu', size=11)
+    pdf.set_font('DejaVu', size=font_size)
 
     # 单元格宽度
     col_widths = [80, 110]
