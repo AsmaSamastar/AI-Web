@@ -185,16 +185,18 @@ def download_summaries():
             title = summary_group['title']
             content = summary_group['content']
 
-            # 计算title的高度
-            lines = pdf.multi_cell(col_widths[0], 10, txt=title, align='L', border=1).split('\n')
-            title_height = 10 * len(lines)
+            # 计算title的行数
+            title_lines = title.split('\n')
+            num_lines = len(title_lines)
 
-            # 在下一个单元格位置绘制content和边框
-            y = pdf.get_y()
-            pdf.multi_cell(col_widths[1], title_height, txt=content, border=1)
-
-            # 回到下一行的起始位置
-            pdf.set_xy(col_widths[0] + pdf.get_x(), y)
+            # 添加title和content
+            for i, line in enumerate(title_lines):
+                pdf.cell(col_widths[0], 10, txt=line, border=1)
+                if i == 0:
+                    pdf.multi_cell(col_widths[1], 10 * num_lines, txt=content, border=1)
+                else:
+                    pdf.cell(col_widths[1], 10, txt='', border=1)
+                pdf.ln()
 
     # 保存PDF到临时文件
     pdf_path = "temp_summaries.pdf"
@@ -205,6 +207,7 @@ def download_summaries():
 
     # 发送PDF文件作为响应
     return send_file(f, as_attachment=True, download_name='summaries.pdf')
+
 
 
 if __name__ == '__main__':
