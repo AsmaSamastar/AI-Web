@@ -71,12 +71,11 @@
     <div id="emailPopup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="document.getElementById('emailPopup').style.display='none'">&times;</span>
+            <p>To send the summary to your email please fill the following the click send summary button</p>
             <form id="emailForm">
-                <label for="name">Name:</label><br>
-                <input type="text" id="name" name="name"><br>
-                <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email"><br>
-                <input type="submit" value="Send">
+                <input type="text" id="name" name="name" placeholder="Name"><br>
+                <input type="email" id="email" name="email" placeholder="Email"><br>
+                <input type="submit" value="Send Summary">
             </form>
         </div>
     </div>
@@ -342,8 +341,12 @@
                 .then(data => {
                     console.log('Success:', data);
                     document.getElementById('emailPopup').style.display = 'none';
+                    alert('Summary sent successfully!');
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error sending summary. Please try again later.');
+                });
         }
 
         document.getElementById('emailForm').addEventListener('submit', function (event) {
