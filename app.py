@@ -167,67 +167,67 @@ def extract_text_from_pdf(file_path):
     return text
 
 
-@app.route('/downloadSummaries', methods=['POST'])
-def download_summaries():
-    # 从请求中获取摘要内容
-    summaries_data_list = request.json['summaries']  # 获取整个摘要列表
+# @app.route('/downloadSummaries', methods=['POST'])
+# def download_summaries():
+#     # 从请求中获取摘要内容
+#     summaries_data_list = request.json['summaries']  # 获取整个摘要列表
 
-    # 创建PDF文档
-    pdf = FPDF()
-    pdf.add_page()
+#     # 创建PDF文档
+#     pdf = FPDF()
+#     pdf.add_page()
 
-    # 加载DejaVu字体
-    pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
+#     # 加载DejaVu字体
+#     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
 
-    def split_text(text, max_width, font_size):
-        words = text.split(' ')
-        lines = []
-        line = ''
-        for word in words:
-            if pdf.get_string_width(line + word) < max_width:
-                line += ' ' + word
-            else:
-                lines.append(line)
-                line = word
-        lines.append(line)
-        return lines
+#     def split_text(text, max_width, font_size):
+#         words = text.split(' ')
+#         lines = []
+#         line = ''
+#         for word in words:
+#             if pdf.get_string_width(line + word) < max_width:
+#                 line += ' ' + word
+#             else:
+#                 lines.append(line)
+#                 line = word
+#         lines.append(line)
+#         return lines
     
-    font_size = 11
-    pdf.set_font('DejaVu', size=font_size)
+#     font_size = 11
+#     pdf.set_font('DejaVu', size=font_size)
 
-    # 单元格宽度
-    col_widths = [80, 110]
-    max_width = col_widths[0] - 2  # 留出一点边距
+#     # 单元格宽度
+#     col_widths = [80, 110]
+#     max_width = col_widths[0] - 2  # 留出一点边距
 
-    # 遍历所有摘要，并将它们添加到PDF文档中
-    for summaries_data in summaries_data_list:
-        for summary_group in summaries_data:
-            title = summary_group['title']
-            content = summary_group['content']
+#     # 遍历所有摘要，并将它们添加到PDF文档中
+#     for summaries_data in summaries_data_list:
+#         for summary_group in summaries_data:
+#             title = summary_group['title']
+#             content = summary_group['content']
 
-            # 将title拆分为多行
-            title_lines = split_text(title, max_width, font_size)
-            num_lines = len(title_lines)
+#             # 将title拆分为多行
+#             title_lines = split_text(title, max_width, font_size)
+#             num_lines = len(title_lines)
 
-            # 添加title和content
-            for i, line in enumerate(title_lines):
-                pdf.cell(col_widths[0], 10, txt=line, border=1)
-                if i == 0:
-                    pdf.multi_cell(
-                        col_widths[1], 10 * num_lines, txt=content, border=1)
-                else:
-                    pdf.cell(col_widths[1], 10, txt='', border=1)
-                pdf.ln()
+#             # 添加title和content
+#             for i, line in enumerate(title_lines):
+#                 pdf.cell(col_widths[0], 10, txt=line, border=1)
+#                 if i == 0:
+#                     pdf.multi_cell(
+#                         col_widths[1], 10 * num_lines, txt=content, border=1)
+#                 else:
+#                     pdf.cell(col_widths[1], 10, txt='', border=1)
+#                 pdf.ln()
 
-    # 保存PDF到临时文件
-    pdf_path = "temp_summaries.pdf"
-    pdf.output(pdf_path)
+#     # 保存PDF到临时文件
+#     pdf_path = "temp_summaries.pdf"
+#     pdf.output(pdf_path)
 
-    # 打开PDF文件
-    f = open(pdf_path, 'rb')
+#     # 打开PDF文件
+#     f = open(pdf_path, 'rb')
 
-    # 发送PDF文件作为响应
-    return send_file(f, as_attachment=True, download_name='summaries.pdf')
+#     # 发送PDF文件作为响应
+#     return send_file(f, as_attachment=True, download_name='summaries.pdf')
 
 def send_email_with_attachment(to_email, subject, content, pdf_path):
     from_email = 'hello@vivnaturelle.com'

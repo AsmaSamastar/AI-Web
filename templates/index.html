@@ -62,6 +62,8 @@
         <button id="prevSummaryButton" class="copyButton">Previous</button>
         <div class="spacer"></div>
         <button id="nextSummaryButton" class="copyButton">Next</button>
+        <!-- <div class="spacer"></div>
+        <button id="downloadButton" class="copyButton">Download</button> -->
         <div class="spacer"></div>
         <button id="sendEmailButton" class="copyButton">Send Summary</button>
     </div>
@@ -290,31 +292,31 @@
             summaries = [];
         });
 
-        function downloadSummaries() {
+        // function downloadSummaries() {
 
-            fetch('/downloadSummaries', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'summaries': summaries
-                })
-            })
-                .then(response => response.blob())
-                .then(blob => {
-                    // 使用浏览器的下载功能
-                    var url = window.URL.createObjectURL(blob);
-                    var a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'summaries.pdf';
-                    a.click();
-                })
-                .catch(error => console.error(error));
-        }
+        //     fetch('/downloadSummaries', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             'summaries': summaries
+        //         })
+        //     })
+        //         .then(response => response.blob())
+        //         .then(blob => {
+        //             // 使用浏览器的下载功能
+        //             var url = window.URL.createObjectURL(blob);
+        //             var a = document.createElement('a');
+        //             a.href = url;
+        //             a.download = 'summaries.pdf';
+        //             a.click();
+        //         })
+        //         .catch(error => console.error(error));
+        // }
 
-        // 绑定到一个按钮或链接
-        document.getElementById('downloadButton').addEventListener('click', downloadSummaries);
+        // // 绑定到一个按钮或链接
+        // document.getElementById('downloadButton').addEventListener('click', downloadSummaries);
 
         document.getElementById('sendEmailButton').addEventListener('click', function () {
             document.getElementById('emailPopup').style.display = 'block';
