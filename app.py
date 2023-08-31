@@ -230,7 +230,7 @@ def download_summaries():
     return send_file(f, as_attachment=True, download_name='summaries.pdf')
 
 def send_email_with_attachment(to_email, subject, content, pdf_path):
-    from_email = 'vivnaturelle@gmail.com'
+    from_email = 'hello@vivnaturelle.com'
     
     # Create message
     message = Mail(
