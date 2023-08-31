@@ -142,3 +142,41 @@ h3 {
 .close:hover {
     color: gray;
 }
+
+
+
+
+.popup-content {
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px; /* 设置最大宽度 */
+}
+
+.popup-content input[type="text"],
+.popup-content input[type="email"],
+.popup-content input[type="submit"] {
+    width: calc(100% - 20px); /* 减去内边距 */
+    max-width: 400px; /* 设置最大宽度 */
+    padding: 10px;
+    margin: 5px 10px; /* 添加外边距 */
+}
+
+.popup-content input[type="text"]:focus,
+.popup-content input[type="email"]:focus {
+    background-color: lightyellow;
+}
+
+.popup-content input[type="submit"] {
+    background-color: green;
+    color: white;
+    width: auto;  /* 更新这里 */
+    padding: 10px 20px; /* 更新这里 */
+    border: none; /* 更新这里 */
+    border-radius: 5px; /* 更新这里 */
+}
+
+
+
+
