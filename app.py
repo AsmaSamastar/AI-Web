@@ -230,7 +230,7 @@ def extract_text_from_pdf(file_path):
 #     return send_file(f, as_attachment=True, download_name='summaries.pdf')
 
 def send_email_with_attachment(to_email, subject, content, pdf_path):
-    from_email = 'hello@vivnaturelle.com'
+    from_email = 'admin@ai.samastar.co.uk'
     
     # Create message
     message = Mail(
