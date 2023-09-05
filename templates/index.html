@@ -272,6 +272,8 @@
 
                     // 更新摘要显示
                     updateSummaryDisplay();
+                    // 在这里隐藏进度条
+                    document.getElementById('progressBar').style.display = 'none';
                 })
                 .catch(error => console.error(error));
         }
