@@ -351,7 +351,7 @@ def send_feedback():
     content = f"Rating: {rating}\n\nFeedback:\n{feedback}"
 
     # 发送电子邮件到指定邮箱
-    to_email = 'admin@ai.samastar.co.uk'
+    to_email = 'hanchengzuo@outlook.com'
     _, _, _ = send_email_with_attachment(to_email, subject, content, None)
 
     return jsonify({'status': 'ok'})
