@@ -34,6 +34,37 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 
 max_length = 13000
 
+@app.route('/', methods=['GET'])
+def home():
+    return render_template("index.html")
+
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if 'pdfUpload' not in request.files:
+        return 'No file part', 400
+    files = request.files.getlist('pdfUpload')
+
+    texts = []
+    for file in files:
+        if file:
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+            text = extract_text_from_pdf(file_path)
+            texts.append(text)
+
+    # 返回一个包含多个文本的JSON对象
+    return jsonify({'texts': texts})
+
+
+def extract_text_from_pdf(file_path):
+    text = ""
+    reader = PdfReader(file_path)
+    for page_num in range(len(reader.pages)):
+        text += reader.pages[page_num].extract_text()
+    return text
+
 
 def split_text_into_paragraphs(text):
     paragraphs = text.split('\n')
@@ -118,7 +149,6 @@ def summarize_with_gpt(text, prompt):
 
     return response.choices[0].message['content']
 
-
 @app.route('/generateSummary', methods=['POST'])
 def generate_summary():
     data = request.get_json()
@@ -133,38 +163,6 @@ def generate_summary():
         summary = summarize_with_gpt_longText(text, prompt)
 
     return jsonify({'summary': summary})
-
-
-@app.route('/', methods=['GET'])
-def home():
-    return render_template("index.html")
-
-
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    if 'pdfUpload' not in request.files:
-        return 'No file part', 400
-    files = request.files.getlist('pdfUpload')
-
-    texts = []
-    for file in files:
-        if file:
-            filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
-            text = extract_text_from_pdf(file_path)
-            texts.append(text)
-
-    # 返回一个包含多个文本的JSON对象
-    return jsonify({'texts': texts})
-
-
-def extract_text_from_pdf(file_path):
-    text = ""
-    reader = PdfReader(file_path)
-    for page_num in range(len(reader.pages)):
-        text += reader.pages[page_num].extract_text()
-    return text
 
 
 # @app.route('/downloadSummaries', methods=['POST'])

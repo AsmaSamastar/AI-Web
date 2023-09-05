@@ -179,4 +179,19 @@ h3 {
 
 
 
+.progress {
+    width: 80%;
+    margin: 20px auto;
+    height: 30px;
+    position: relative;
+    background: #eee;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: #3498db;
+    position: absolute;
+    transition: width 0.4s;
+}
 

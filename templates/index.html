@@ -33,6 +33,13 @@
         <button type="button" id="uploadAndGenerateSummaryButton">Upload PDF and Generate Summary</button>
     </div>
 
+    <!-- Progress Bar -->
+    <div class="progress">
+        <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="100"></div>
+    </div>
+
+
     <h3>PDF Text</h3> <!-- 新增标题 -->
 
     <textarea id="output" class="textArea" readonly></textarea> <!-- 新增文本框 -->
@@ -236,10 +243,22 @@
 
             var summaryPromises = [];
 
+            var totalPrompts = texts.length * prompts.length;
+            var completedPrompts = 0;
+
             // 创建摘要的Promise
             for (let textIndex = 0; textIndex < texts.length; textIndex++) {
                 for (let promptIndex = 0; promptIndex < prompts.length; promptIndex++) {
-                    summaryPromises.push(generateSingleSummary(textIndex, promptIndex));
+                    summaryPromises.push(
+                        generateSingleSummary(textIndex, promptIndex)
+                            .then(result => {
+                                // 计算并更新进度条
+                                completedPrompts++;
+                                var progressValue = (completedPrompts / totalPrompts) * 100;
+                                updateProgressBar(progressValue);
+                                return result;
+                            })
+                    );
                 }
             }
 
@@ -258,6 +277,9 @@
         }
 
         document.getElementById('uploadAndGenerateSummaryButton').addEventListener('click', function () {
+
+            updateProgressBar(0); // Reset the progress bar at the start of upload
+            
             // 创建并填充 FormData 对象
             var formData = new FormData();
             for (var i = 0; i < allFiles.length; i++) {
@@ -354,6 +376,13 @@
             event.preventDefault();
             sendEmail();
         });
+
+
+        function updateProgressBar(value) {
+            var progressBar = document.getElementById('progressBar');
+            progressBar.style.width = value + "%";
+            progressBar.setAttribute('aria-valuenow', value);
+        }
 
 
     </script>
