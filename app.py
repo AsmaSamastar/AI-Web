@@ -240,16 +240,17 @@ def send_email_with_attachment(to_email, subject, content, pdf_path):
         html_content=content)
 
     # Add attachment
-    with open(pdf_path, 'rb') as f:
-        data = f.read()
-        f.close()
-    encoded = base64.b64encode(data).decode()
-    attachedFile = Attachment(
-        FileContent(encoded),
-        FileName('summaries.pdf'),
-        FileType('application/pdf'),
-        Disposition('attachment'))
-    message.attachment = attachedFile
+    if pdf_path is not None:
+        with open(pdf_path, 'rb') as f:
+            data = f.read()
+            f.close()
+        encoded = base64.b64encode(data).decode()
+        attachedFile = Attachment(
+            FileContent(encoded),
+            FileName('summaries.pdf'),
+            FileType('application/pdf'),
+            Disposition('attachment'))
+        message.attachment = attachedFile
 
     # Send email
     try:
