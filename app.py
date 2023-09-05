@@ -34,6 +34,7 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 
 max_length = 13000
 
+
 @app.route('/', methods=['GET'])
 def home():
     return render_template("index.html")
@@ -149,6 +150,7 @@ def summarize_with_gpt(text, prompt):
 
     return response.choices[0].message['content']
 
+
 @app.route('/generateSummary', methods=['POST'])
 def generate_summary():
     data = request.get_json()
@@ -189,7 +191,7 @@ def generate_summary():
 #                 line = word
 #         lines.append(line)
 #         return lines
-    
+
 #     font_size = 11
 #     pdf.set_font('DejaVu', size=font_size)
 
@@ -229,14 +231,14 @@ def generate_summary():
 
 def send_email_with_attachment(to_email, subject, content, pdf_path):
     from_email = 'admin@ai.samastar.co.uk'
-    
+
     # Create message
     message = Mail(
         from_email=from_email,
         to_emails=to_email,
         subject=subject,
         html_content=content)
-    
+
     # Add attachment
     with open(pdf_path, 'rb') as f:
         data = f.read()
@@ -258,6 +260,7 @@ def send_email_with_attachment(to_email, subject, content, pdf_path):
         print(str(e))
         return None, None, None
 
+
 def create_pdf(pdf_path, summaries_data_list):
     # 创建PDF文档
     pdf = FPDF()
@@ -278,7 +281,7 @@ def create_pdf(pdf_path, summaries_data_list):
                 line = word
         lines.append(line)
         return lines
-    
+
     font_size = 11
     pdf.set_font('DejaVu', size=font_size)
 
@@ -309,6 +312,7 @@ def create_pdf(pdf_path, summaries_data_list):
     # 保存PDF到临时文件
     pdf.output(pdf_path)
 
+
 @app.route('/sendEmail', methods=['POST'])
 def send_email():
     # 从请求中获取数据
@@ -324,11 +328,30 @@ def send_email():
     # 发送电子邮件
     subject = "Your PDF Summary"
     content = "Hello " + name + ",\n\nHere is your PDF summary."
-    status, _, _ = send_email_with_attachment(email, subject, content, pdf_path)
+    status, _, _ = send_email_with_attachment(
+        email, subject, content, pdf_path)
 
     # 删除临时 PDF 文件
     if status == 202:  # 只有在电子邮件发送成功时删除临时文件
         os.remove(pdf_path)
+
+    return jsonify({'status': 'ok'})
+
+
+@app.route('/sendFeedback', methods=['POST'])
+def send_feedback():
+    # 从请求中获取数据
+    data = request.json
+    rating = data['rating']
+    feedback = data['feedback']
+
+    # 创建邮件内容
+    subject = "New Feedback Received"
+    content = f"Rating: {rating}\n\nFeedback:\n{feedback}"
+
+    # 发送电子邮件到指定邮箱
+    to_email = 'admin@ai.samastar.co.uk'
+    _, _, _ = send_email_with_attachment(to_email, subject, content, None)
 
     return jsonify({'status': 'ok'})
 

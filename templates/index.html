@@ -10,11 +10,11 @@
 
 <body>
 
-    <nav>
+    <!-- <nav>
         <ul>
             <li><a href="https://samastar.co.uk/">Home</a></li>
         </ul>
-    </nav>
+    </nav> -->
 
     <h2>Upload your PDF file</h2>
     <div class="pdfUploadContainer">
@@ -90,6 +90,27 @@
 
     <textarea id="summary" style="display:none;"></textarea>
 
+    <div id="feedbackPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="document.getElementById('feedbackPopup').style.display='none'">&times;</span>
+            <p>Provide your feedback:</p>
+            <form id="feedbackForm">
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select><br>
+                <textarea id="feedbackText" name="feedbackText" placeholder="Leave your comments..."></textarea><br>
+                <input type="submit" value="Submit Feedback">
+            </form>
+        </div>
+    </div>
+
+    <button type="button" id="feedbackButton" class="copyButton"
+        style="position: fixed; bottom: 20px; right: 20px;">Feedback</button>
 
     <script>
 
@@ -385,6 +406,42 @@
             progressBar.style.width = value + "%";
             progressBar.setAttribute('aria-valuenow', value);
         }
+
+
+        document.getElementById('feedbackButton').addEventListener('click', function () {
+            document.getElementById('feedbackPopup').style.display = 'block';
+        });
+
+        function sendFeedback() {
+            var rating = document.getElementById('rating').value;
+            var feedbackText = document.getElementById('feedbackText').value;
+
+            fetch('/sendFeedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'rating': rating,
+                    'feedback': feedbackText
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('feedbackPopup').style.display = 'none';
+                    alert('Feedback submitted successfully!');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error sending feedback. Please try again later.');
+                });
+        }
+
+        document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            sendFeedback();
+        });
+
 
 
     </script>
