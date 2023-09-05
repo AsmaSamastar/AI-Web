@@ -57,7 +57,7 @@
     </table>
 
     <!-- Progress Bar -->
-    <div class="progress">
+    <div id="progressBarContainer" class="progress">
         <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
             aria-valuemax="100"></div>
     </div>
@@ -273,7 +273,7 @@
                     // 更新摘要显示
                     updateSummaryDisplay();
                     // 在这里隐藏进度条
-                    document.getElementById('progressBar').style.display = 'none';
+                    document.getElementById('progressBarContainer').style.display = 'none';
                 })
                 .catch(error => console.error(error));
         }
