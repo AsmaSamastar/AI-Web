@@ -3,13 +3,73 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #f3f4f6;
 }
+
+
+.content, .contents, .popup-content {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+}
+
+h2, h3 {
+    margin-bottom: 15px;
+}
+
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+h2, h3 {
+    font-weight: 500;
+    color: #333;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52,152,219,0.5);
+}
+
+
+
 
 .content, .contents {
     width: 80%; 
     text-align: center;
     margin: auto; 
 }
+
+#summaryTable, #outputTable {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#summaryTable th,
+#summaryTable td,
+#outputTable th,
+#outputTable td {
+    padding: 10px 20px;
+}
+
+#summaryTable tr:nth-child(odd),
+#outputTable tr:nth-child(odd) {
+    background-color: #f7f7f7;
+}
+
 
 
 .content p {
@@ -122,15 +182,30 @@ h3 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7); /* 黑色背景半透明效果，这将作为遮罩效果 */
     display: none;
+    z-index: 1000; /*保证弹窗在其他元素之上*/
 }
 
 .popup-content {
-    background: white;
-    margin: 10% auto;
+    border-radius: 10px;
+    text-align: center;
     padding: 20px;
-    width: 50%;
+    background-color: #fff; /* 这将确保弹窗内容的背景是白色的 */
+    width: 80%; /* 设置宽度为屏幕的 80% */
+    max-width: 600px; /* 设置更大的最大宽度 */
+    position: absolute; /* 相对于 .popup 定位 */
+    top: 50%; /* 位于页面垂直中央 */
+    left: 50%; /* 位于页面水平中央 */
+    transform: translate(-50%, -50%); /* 使用 transform 居中弹窗 */
+}
+
+.popup-content textarea {
+    width: calc(100% - 20px); /* 减去内边距，与您的 input 类似 */
+    height: 100px; /* 设置一个合适的高度 */
+    padding: 10px; /* 增加内边距使输入更为舒适 */
+    margin: 5px 10px; /* 与您的 input 保持一致的外边距 */
+    resize: vertical; /* 允许用户垂直调整大小，但不允许水平调整，确保不破坏布局 */
 }
 
 .close {
@@ -143,15 +218,23 @@ h3 {
     color: gray;
 }
 
+.icon-label {
+    cursor: pointer;
+    font-size: 30px; 
+    margin: 0 5px;
+    transition: color 0.3s;
+    display: inline-block;  /* 添加这行 */
+    text-align: center;  /* 使文字和图标都居中 */
+    vertical-align: top;  /* 添加这行 */
+    width: 40px;  /* 添加一个固定的宽度 */
+}
 
 
 
-.popup-content {
-    border-radius: 10px;
-    text-align: center;
-    padding: 20px;
-    width: 100%;
-    max-width: 400px; /* 设置最大宽度 */
+.rating-text {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
 }
 
 .popup-content input[type="text"],
@@ -193,5 +276,99 @@ h3 {
     background-color: #3498db;
     position: absolute;
     transition: width 0.4s;
+}
+
+
+
+
+
+/* 默认颜色为灰色 */
+.icon-label i {
+    color: gray;
+}
+
+/* 当选择某个评分后，该评分的颜色会变为预设的颜色 */
+.rating-1 input[type="radio"]:checked + i {
+    color: red;
+}
+
+.rating-2 input[type="radio"]:checked + i {
+    color: orangered;
+}
+
+.rating-3 input[type="radio"]:checked + i {
+    color: orange;
+}
+
+.rating-4 input[type="radio"]:checked + i {
+    color: yellowgreen;
+}
+
+.rating-5 input[type="radio"]:checked + i {
+    color: green;
+}
+
+
+/* 通用按钮样式 */
+.commonButton,
+.copyButton, 
+.popup-content input[type="submit"], 
+.selectFileButton, 
+.addMoreFilesButton, 
+.uploadAndSummarizeButton {
+    padding: 10px 20px;  /* 减小按钮的尺寸 */
+    font-size: 16px;    /* 调整字体大小 */
+    border: none; 
+    border-radius: 5px;
+    background: linear-gradient(135deg, #5EE1E6, #3498db);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.commonButton:hover,
+.copyButton:hover, 
+.popup-content input[type="submit"]:hover, 
+.selectFileButton:hover, 
+.addMoreFilesButton:hover, 
+.uploadAndSummarizeButton:hover {
+    background: linear-gradient(135deg, #4BC3D0, #217AB0);
+    transform: scale(1.05);
+}
+
+.commonButton:active,
+.copyButton:active, 
+.popup-content input[type="submit"]:active, 
+.selectFileButton:active, 
+.addMoreFilesButton:active, 
+.uploadAndSummarizeButton:active {
+    transform: scale(1);
+}
+
+
+
+#feedbackButton {
+    position: fixed;
+    width: 40px;
+    height: 100px;
+    right: 20px;
+    bottom: 20px;
+    border: none; /* 您可以根据需要设置边框 */
+    background-color: #ff6600; /* 仅供参考，您可以设置自己的背景颜色 */
+    padding: 0;
+    overflow: visible; /* 允许内容超出按钮边界 */
+    display: flex; /* 使用flex布局居中内容 */
+    align-items: center; /* 垂直居中内容 */
+    justify-content: center; /* 水平居中内容 */
+}
+
+.vertical-text {
+    transform: rotate(-90deg);
+    transform-origin: center center; 
+    white-space: nowrap;
+}
+
+#feedbackButton:hover {
+    transform: scale(1.1);
 }
 

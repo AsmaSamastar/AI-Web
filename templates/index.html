@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.js"></script>
 </head>
@@ -19,10 +20,10 @@
     <h2>Upload your PDF file</h2>
     <div class="pdfUploadContainer">
         <!-- <h2>Upload your PDF file</h2> -->
-        <form id="pdfUploadForm" action="https://coral-app-qzfcm.ondigitalocean.app/upload" method="post"
+        <form class="copyButton" id="pdfUploadForm" action="https://coral-app-qzfcm.ondigitalocean.app/upload" method="post"
             enctype="multipart/form-data">
             <input type="file" id="pdfUpload" name="pdfUpload" accept=".pdf" multiple onchange="addMoreFiles()">
-            <button type="button" id="addFilesButton">Add More Files</button>
+            <button class="copyButton" type="button" id="addFilesButton">Add More Files</button>
         </form>
 
         <!-- 新增元素显示选择的文件名 -->
@@ -30,7 +31,7 @@
     </div>
 
     <div class="pdfUploadContainer">
-        <button type="button" id="uploadAndGenerateSummaryButton">Upload PDF and Generate Summary</button>
+        <button class="copyButton" type="button" id="uploadAndGenerateSummaryButton">Upload PDF and Generate Summary</button>
     </div>
 
 
@@ -93,24 +94,45 @@
     <div id="feedbackPopup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="document.getElementById('feedbackPopup').style.display='none'">&times;</span>
-            <p>Provide your feedback:</p>
+            <p>Overall, how satisfied or dissatisfied are you with this website?</p>
             <form id="feedbackForm">
-                <label for="rating">Rating:</label>
-                <select id="rating" name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select><br>
+                <label for="rating">Rating:</label><br>
+                <div id="rating">
+                    <label class="icon-label rating-1">
+                        <input type="radio" name="rating" value="1" hidden>
+                        <i class="far fa-frown"></i>
+                        <div class="rating-text">Very dissatisfied</div>
+                    </label>
+                    <label class="icon-label rating-2">
+                        <input type="radio" name="rating" value="2" hidden>
+                        <i class="far fa-frown-open"></i>
+                    </label>
+                    <label class="icon-label rating-3">
+                        <input type="radio" name="rating" value="3" hidden>
+                        <i class="far fa-meh"></i>
+                    </label>
+                    <label class="icon-label rating-4">
+                        <input type="radio" name="rating" value="4" hidden>
+                        <i class="far fa-smile"></i>
+                    </label>
+                    <label class="icon-label rating-5">
+                        <input type="radio" name="rating" value="5" hidden>
+                        <i class="far fa-laugh"></i>
+                        <div class="rating-text">Very satisfied</div>
+                    </label>
+                </div>
+
+                <br>
                 <textarea id="feedbackText" name="feedbackText" placeholder="Leave your comments..."></textarea><br>
                 <input type="submit" value="Submit Feedback">
             </form>
         </div>
     </div>
 
-    <button type="button" id="feedbackButton" class="copyButton"
-        style="position: fixed; bottom: 20px; right: 20px;">Feedback</button>
+    <button type="button" id="feedbackButton" class="copyButton">
+        <span class="vertical-text">Feedback</span>
+    </button>
+    
 
     <script>
 
