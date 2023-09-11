@@ -26,7 +26,7 @@
             <button class="copyButton" type="button" id="addFilesButton">Add More Files</button>
         </form>
 
-        <!-- 新增元素显示选择的文件名 -->
+        
         <ul id="fileList"></ul>
     </div>
 
@@ -35,9 +35,9 @@
     </div>
 
 
-    <h3>PDF Text</h3> <!-- 新增标题 -->
+    <h3>PDF Text</h3> 
 
-    <textarea id="output" class="textArea" readonly></textarea> <!-- 新增文本框 -->
+    <textarea id="output" class="textArea" readonly></textarea> 
 
     <p id="fileIndex">0 / 0</p>
 
@@ -46,7 +46,7 @@
         <div class="spacer"></div>
         <button id="nextButton" class="copyButton">Next</button>
         <div class="spacer"></div>
-        <button id="copyButton" class="copyButton">Copy Text</button> <!-- 新增复制按钮 -->
+        <button id="copyButton" class="copyButton">Copy Text</button> 
     </div>
 
     <div class="arrowContainer">
@@ -57,16 +57,16 @@
     <table id="summaryTable">
     </table>
 
-    <!-- Progress Bar -->
+    
     <div id="progressBarContainer" class="progress">
         <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
             aria-valuemax="100"></div>
     </div>
 
-    <!-- 添加元素来显示当前摘要的索引 -->
+    
     <p id="summaryIndex">0 / 0</p>
 
-    <!-- 为 PDF 摘要添加上一页和下一页的按钮 -->
+    
     <div class="buttonContainer">
         <button id="prevSummaryButton" class="copyButton">Previous</button>
         <div class="spacer"></div>
@@ -139,10 +139,10 @@
         var currentTextIndex = 0;
         var currentPromptIndex = 0;
 
-        // 定义一个数组来存储所有用户选择的文件
+        
         var allFiles = [];
 
-        // 新增函数来显示用户选择的文件名
+        
         function displayFileNames() {
             var ul = document.getElementById('fileList');
             ul.innerHTML = '';
@@ -153,7 +153,7 @@
             }
         }
 
-        // 新增函数来添加更多文件
+        
         function addMoreFiles() {
             var input = document.getElementById('pdfUpload');
             for (var i = 0; i < input.files.length; i++) {
@@ -167,11 +167,11 @@
             document.getElementById('pdfUpload').click();
         });
 
-        // 存储所有的文本和当前显示的文本的索引
+        
         var texts = [];
         var currentIndex = 0;
 
-        // 添加翻页按钮的事件处理器
+        
         document.getElementById('prevButton').addEventListener('click', function () {
             if (currentIndex > 0) {
                 currentIndex--;
@@ -193,7 +193,7 @@
         });
 
 
-        // 实现复制按钮的功能
+        
         document.getElementById('copyButton').addEventListener('click', function () {
             var copyText = document.getElementById("output");
             copyText.select();
@@ -201,7 +201,7 @@
             alert("Text has been copied");
         });
 
-        // 定义一个数组来存储所有的摘要
+        
         var summaries = [];
         var currentSummaryIndex = 0;
 
@@ -221,23 +221,23 @@
                     cell2.innerText = summary.content;
                 });
 
-                // 更新摘要索引
+                
                 document.getElementById('summaryIndex').innerText = (currentSummaryIndex + 1) + ' / ' + summaries.length;
             }
         }
 
-        // 更新翻页按钮的事件处理器
+        
         document.getElementById('prevSummaryButton').addEventListener('click', function () {
             if (currentSummaryIndex > 0) {
                 currentSummaryIndex--;
-                updateSummaryDisplay(); // 调用新的更新函数
+                updateSummaryDisplay(); 
             }
         });
 
         document.getElementById('nextSummaryButton').addEventListener('click', function () {
             if (currentSummaryIndex < summaries.length - 1) {
                 currentSummaryIndex++;
-                updateSummaryDisplay(); // 调用新的更新函数
+                updateSummaryDisplay(); 
             }
         });
 
@@ -248,7 +248,7 @@
             { title: 'Summarise purification conditions', prompt: 'extract content from the Materials and methods section in the text and provide in details cell purification conditions and mention all steps, chemicals, buffers used with quantities. steps may include: isolation and dissolution of inclusion bodies, renaturation, trypsinization, precipitation, chromatography, HPLC , and any other reactions used - summarise them in order and exclude cell culture conditions' },
             { title: 'Extracting material and manufacturers', prompt: 'summarize content from the materials section in the text and provide bullet points about: names of Materials and chemicals used and names of manufacturer for each one. Example: Antifoam from Sigma L-proline from Sigma EDTA from Sigma. And Only Keep the manufacturer company names and remove all "manufacturer" words if it exists and if it is repeated in each line' },
 
-            // 添加更多prompt和标题...
+            // Add more prompts and titles...
         ];
 
         function generateSingleSummary(textIndex, promptIndex) {
@@ -273,13 +273,12 @@
             });
         }
 
-        // 新的生成摘要函数，提取自旧的摘要生成按钮的事件处理器
+        
         function generateSummaries() {
-            // 这里是之前在摘要生成按钮的事件处理器中的代码
-            // ...
-            summaries = new Array(texts.length); // 创建一个新数组来存储摘要
+
+            summaries = new Array(texts.length); 
             for (let i = 0; i < texts.length; i++) {
-                summaries[i] = []; // 每个文本的摘要都存储在一个独立的数组中
+                summaries[i] = []; 
             }
             var summaryTable = document.getElementById('summaryTable');
             summaryTable.innerHTML = '';
@@ -289,13 +288,11 @@
             var totalPrompts = texts.length * prompts.length;
             var completedPrompts = 0;
 
-            // 创建摘要的Promise
             for (let textIndex = 0; textIndex < texts.length; textIndex++) {
                 for (let promptIndex = 0; promptIndex < prompts.length; promptIndex++) {
                     summaryPromises.push(
                         generateSingleSummary(textIndex, promptIndex)
                             .then(result => {
-                                // 计算并更新进度条
                                 completedPrompts++;
                                 var progressValue = (completedPrompts / totalPrompts) * 100;
                                 updateProgressBar(progressValue);
@@ -305,17 +302,17 @@
                 }
             }
 
-            // 并行执行所有摘要的生成
+
             Promise.all(summaryPromises)
                 .then(results => {
                     results.forEach(result => {
-                        // 将摘要添加到对应的文本摘要数组中
+
                         summaries[result.textIndex].push(result.summary);
                     });
 
-                    // 更新摘要显示
+
                     updateSummaryDisplay();
-                    // 在这里隐藏进度条
+
                     document.getElementById('progressBarContainer').style.display = 'none';
                 })
                 .catch(error => console.error(error));
@@ -325,36 +322,33 @@
 
             updateProgressBar(0); // Reset the progress bar at the start of upload
 
-            // 创建并填充 FormData 对象
+
             var formData = new FormData();
             for (var i = 0; i < allFiles.length; i++) {
                 formData.append('pdfUpload', allFiles[i]);
             }
 
-            // 使用fetch上传文件
             fetch('https://coral-app-qzfcm.ondigitalocean.app/upload', {
                 method: 'POST',
                 body: formData
             })
                 .then(response => response.json())
                 .then(json => {
-                    // 上传成功后更新全局变量
+
                     texts = json.texts;
                     currentIndex = 0;
 
-                    // 将第一个文件的文本放入文本框
+
                     var outputTextarea = document.getElementById('output');
                     outputTextarea.value = texts[currentIndex];
 
-                    // 更新文件索引
                     document.getElementById('fileIndex').innerText = '1 / ' + texts.length;
 
-                    // 在此处调用生成摘要的功能
-                    generateSummaries(); // 这是一个新的函数，用来封装生成摘要的代码
+                    generateSummaries(); 
                 })
                 .catch(error => console.error(error));
 
-            // 清除文件名列表和摘要
+
             document.getElementById('fileList').innerHTML = '';
             allFiles = [];
             summaries = [];
@@ -373,7 +367,7 @@
         //     })
         //         .then(response => response.blob())
         //         .then(blob => {
-        //             // 使用浏览器的下载功能
+        //             
         //             var url = window.URL.createObjectURL(blob);
         //             var a = document.createElement('a');
         //             a.href = url;
@@ -383,7 +377,6 @@
         //         .catch(error => console.error(error));
         // }
 
-        // // 绑定到一个按钮或链接
         // document.getElementById('downloadButton').addEventListener('click', downloadSummaries);
 
         document.getElementById('sendEmailButton').addEventListener('click', function () {
