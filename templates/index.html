@@ -191,34 +191,34 @@
         var currentIndex = 0;
 
 
-        document.getElementById('prevButton').addEventListener('click', function () {
-            if (currentIndex > 0) {
-                currentIndex--;
-                var outputTextarea = document.getElementById('output');
-                outputTextarea.value = texts[currentIndex];
-            }
+        // document.getElementById('prevButton').addEventListener('click', function () {
+        //     if (currentIndex > 0) {
+        //         currentIndex--;
+        //         var outputTextarea = document.getElementById('output');
+        //         outputTextarea.value = texts[currentIndex];
+        //     }
 
-            document.getElementById('fileIndex').innerText = (currentIndex + 1) + ' / ' + texts.length;
-        });
+        //     document.getElementById('fileIndex').innerText = (currentIndex + 1) + ' / ' + texts.length;
+        // });
 
-        document.getElementById('nextButton').addEventListener('click', function () {
-            if (currentIndex < texts.length - 1) {
-                currentIndex++;
-                var outputTextarea = document.getElementById('output');
-                outputTextarea.value = texts[currentIndex];
-            }
+        // document.getElementById('nextButton').addEventListener('click', function () {
+        //     if (currentIndex < texts.length - 1) {
+        //         currentIndex++;
+        //         var outputTextarea = document.getElementById('output');
+        //         outputTextarea.value = texts[currentIndex];
+        //     }
 
-            document.getElementById('fileIndex').innerText = (currentIndex + 1) + ' / ' + texts.length;
-        });
+        //     document.getElementById('fileIndex').innerText = (currentIndex + 1) + ' / ' + texts.length;
+        // });
 
 
 
-        document.getElementById('copyButton').addEventListener('click', function () {
-            var copyText = document.getElementById("output");
-            copyText.select();
-            document.execCommand("copy");
-            alert("Text has been copied");
-        });
+        // document.getElementById('copyButton').addEventListener('click', function () {
+        //     var copyText = document.getElementById("output");
+        //     copyText.select();
+        //     document.execCommand("copy");
+        //     alert("Text has been copied");
+        // });
 
 
         var summaries = [];
