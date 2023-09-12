@@ -114,7 +114,7 @@ body {
     display: flex;
     justify-content: center; /* 主轴上居中 */
     align-items: center;     /* 交叉轴上居中 */
-    width: 35%;              /* 确保容器宽度足够 */
+    width: 100%;              /* 确保容器宽度足够 */
     flex-direction: row;     /* 默认为行，但为了明确，我们可以指定为row */
     height: 100%;            /* 根据你的需要来调整，可能需要为这个容器指定高度 */
 }
