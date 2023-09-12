@@ -112,9 +112,18 @@ body {
 
 .buttonContainer {
     display: flex;
-    justify-content: space-evenly;
-    width: 35%; /* 确保容器宽度足够 */
+    justify-content: center; /* 主轴上居中 */
+    align-items: center;     /* 交叉轴上居中 */
+    width: 35%;              /* 确保容器宽度足够 */
+    flex-direction: row;     /* 默认为行，但为了明确，我们可以指定为row */
+    height: 100%;            /* 根据你的需要来调整，可能需要为这个容器指定高度 */
 }
+
+.buttonContainer > button:not(:last-child) {
+    margin-right: 20px; /* 根据需要调整按钮之间的间距 */
+}
+
+
 
 h2,
 h3 {
@@ -122,6 +131,10 @@ h3 {
     font-weight: 500;
     color: #333;
     margin-bottom: 15px;
+}
+
+#summaryIndex{
+    text-align: center;
 }
 
 
@@ -179,7 +192,7 @@ textarea:focus {
 #outputTable {
     border-collapse: collapse;
     width: 100%;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     overflow: hidden;
 }
 
@@ -396,18 +409,6 @@ h3 {
     background-color: lightyellow;
 }
 
-.popup-content input[type="submit"] {
-    background-color: green;
-    color: white;
-    width: auto;
-    /* 更新这里 */
-    padding: 10px 20px;
-    /* 更新这里 */
-    border: none;
-    /* 更新这里 */
-    border-radius: 5px;
-    /* 更新这里 */
-}
 
 
 
@@ -455,10 +456,10 @@ h3 {
     /* 减小按钮的尺寸 */
     font-size: 16px;
     /* 调整字体大小 */
-    border: none;
-    border-radius: 5px;
-    background: linear-gradient(135deg, #5EE1E6, #3498db);
-    color: white;
+    border: 2px solid black;
+    border-radius: 25px; 
+    background-color: #d6dd32;
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     margin-right: 10px;
@@ -475,7 +476,7 @@ h3 {
 .selectFileButton:hover,
 .addMoreFilesButton:hover,
 .uploadAndSummarizeButton:hover {
-    background: linear-gradient(135deg, #4BC3D0, #217AB0);
+    background-color: #b5c42a;
     transform: scale(1.05);
 }
 
@@ -498,7 +499,7 @@ h3 {
     bottom: 20px;
     border: none;
     /* 您可以根据需要设置边框 */
-    background-color: #ff6600;
+    background-color: #b5c42a;
     /* 仅供参考，您可以设置自己的背景颜色 */
     padding: 0;
     overflow: visible;
