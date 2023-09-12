@@ -1,21 +1,147 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f3f4f6;
 }
 
-
-.content, .contents, .popup-content {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1); 
-    padding: 20px;
+.logo {
+    width: 500px;
+    margin-bottom: 20px;
 }
 
-h2, h3 {
+.description-text {
+    font-size: 28px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.upload-instructions {
+    font-size: 0.9rem;  
+    color: #888;       
+    margin-top: 10px;  
+}
+
+#pdfUploadForm {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.buttonHover{
+    cursor: pointer;
+    transition: 0.3s;               /* 添加过渡效果以平滑地改变颜色 */
+}
+
+.buttonHover:hover{
+    transform: scale(1.05);
+}
+.buttonHover:active{
+    transform: scale(1);
+}
+
+#addFilesButton {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;   /* 设置背景为透明 */
+    border: 2px solid #d6dd32;      /* 设置边框颜色为 #d6dd32 */
+    border-radius: 25px;            /* 设置圆角 */
+    padding: 20px 100px;       /* 增大内部间距 */            /* 为按钮增加一些内部间距，使其看起来更像一个长条形状 */
+    font-size: 22px;         /* 增大字体大小 */
+
+}
+
+#addFilesButton:hover {
+    background-color: #d6dd32;      /* 鼠标悬停时的背景颜色 */
+    color: white;                   /* 鼠标悬停时的文字颜色 */
+}
+
+.yellowButton{
+    background-color: #d6dd32;       /* 设置背景颜色为 #d6dd32 */
+    border-radius: 25px;             /* 设置圆角 */
+    border: 2px solid black;         /* 设置边框颜色为黑色 */
+    color: black;                    /* 设置按钮文本颜色为黑色 */
+    transition: background-color 0.3s, transform 0.3s; /* 添加过渡效果以平滑地改变颜色 */
+}
+
+.yellowButton:hover {
+    background-color: #b5c42a;      /* 鼠标悬停时的背景颜色，稍微变深 */
+    color: white;                   /* 鼠标悬停时的文字颜色变为白色 */
+}
+
+#uploadAndGenerateSummaryButton {
+    padding: 20px 30px;              /* 为按钮增加一些内部间距，使其看起来更像一个长条形状 */
+    font-size: 22px;
+}
+
+.progress {
+    width: 30%;                  /* 保持原始宽度 */
+    margin: 20px auto;          /* 保持原始外边距 */
+    height: 30px;               /* 保持原始高度 */
+    position: relative;         /* 保持原始定位 */
+    background-color: #eee;     /* 设置默认背景颜色为#eee */
+    border: 2px solid black;    /* 设置边框颜色为黑色 */
+    border-radius: 25px;        /* 设置圆角 */
+}
+
+.progress-bar {
+    height: 100%;               /* 保持原始高度 */
+    width: 0;                   /* 保持原始宽度 */
+    background-color: #d6dd32;  /* 设置加载时的颜色为#d6dd32 */
+    position: absolute;         /* 保持原始定位 */
+    transition: width 0.4s;     /* 保持原始过渡效果 */
+    border-radius: 23px;        /* 设置圆角，稍小于外部容器以确保边缘不超出 */
+}
+
+#nextSummaryButton,
+#prevSummaryButton {
+    padding: 10px 20px;              /* 为按钮增加一些内部间距，使其看起来更像一个长条形状 */
+    font-size: 16px;
+}
+
+#sendEmailButton {
+    padding: 10px 30px;              /* 为按钮增加一些内部间距，使其看起来更像一个长条形状 */
+    font-size: 16px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-evenly;
+    width: 35%; /* 确保容器宽度足够 */
+}
+
+h2,
+h3 {
+    text-align: center;
+    font-weight: 500;
+    color: #333;
     margin-bottom: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.content,
+.contents,
+.popup-content {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 button {
@@ -30,28 +156,27 @@ button:active {
     transform: scale(0.98);
 }
 
-h2, h3 {
-    font-weight: 500;
-    color: #333;
-}
+
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 textarea:focus {
     border-color: #3498db;
-    box-shadow: 0 0 10px rgba(52,152,219,0.5);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
 }
 
 
 
 
-.content, .contents {
-    width: 80%; 
+.content,
+.contents {
+    width: 80%;
     text-align: center;
-    margin: auto; 
+    margin: auto;
 }
 
-#summaryTable, #outputTable {
+#summaryTable,
+#outputTable {
     border-collapse: collapse;
     width: 100%;
     border-radius: 5px;
@@ -83,7 +208,7 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center; 
+    align-items: center;
     width: 100%;
 }
 
@@ -93,7 +218,7 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%; 
+    width: 80%;
 }
 
 #outputTable {
@@ -135,34 +260,32 @@ nav ul li a {
 
 /* 新增标题样式 */
 h3 {
-    margin-bottom: 5px;  /* 设置标题元素的下边距为10像素 */
+    margin-bottom: 5px;
+    /* 设置标题元素的下边距为10像素 */
 }
 
 /* 设置文本框的样式 */
 .textArea {
-    width: 70%; /* 宽度占据页面的60% */
-    height: 65vh; /* 高度占据页面的50% */
-    margin-top: 5px; /* 上边距为20像素，使其离上方的内容有一定的距离 */
-    resize: none; /* 禁止用户改变文本框的尺寸 */
+    width: 70%;
+    /* 宽度占据页面的60% */
+    height: 65vh;
+    /* 高度占据页面的50% */
+    margin-top: 5px;
+    /* 上边距为20像素，使其离上方的内容有一定的距离 */
+    resize: none;
+    /* 禁止用户改变文本框的尺寸 */
 }
+
 .copyButton {
     margin-top: 5px;
 }
 
-.arrowContainer{
+.arrowContainer {
     margin-top: 10px;
     font-size: 50px;
     margin-bottom: 10px;
 }
 
-.buttonContainer {
-    display: flex;
-    justify-content: space-between;
-}
-
-.spacer {
-    flex-grow: 1;
-}
 
 
 
@@ -170,6 +293,7 @@ h3 {
     width: 100%;
     border-collapse: collapse;
 }
+
 #summaryTable td {
     border: 1px solid black;
     padding: 10px;
@@ -182,30 +306,44 @@ h3 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* 黑色背景半透明效果，这将作为遮罩效果 */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* 黑色背景半透明效果，这将作为遮罩效果 */
     display: none;
-    z-index: 1000; /*保证弹窗在其他元素之上*/
+    z-index: 1000;
+    /*保证弹窗在其他元素之上*/
 }
 
 .popup-content {
     border-radius: 10px;
     text-align: center;
     padding: 20px;
-    background-color: #fff; /* 这将确保弹窗内容的背景是白色的 */
-    width: 80%; /* 设置宽度为屏幕的 80% */
-    max-width: 600px; /* 设置更大的最大宽度 */
-    position: absolute; /* 相对于 .popup 定位 */
-    top: 50%; /* 位于页面垂直中央 */
-    left: 50%; /* 位于页面水平中央 */
-    transform: translate(-50%, -50%); /* 使用 transform 居中弹窗 */
+    background-color: #fff;
+    /* 这将确保弹窗内容的背景是白色的 */
+    width: 80%;
+    /* 设置宽度为屏幕的 80% */
+    max-width: 600px;
+    /* 设置更大的最大宽度 */
+    position: absolute;
+    /* 相对于 .popup 定位 */
+    top: 50%;
+    /* 位于页面垂直中央 */
+    left: 50%;
+    /* 位于页面水平中央 */
+    transform: translate(-50%, -50%);
+    /* 使用 transform 居中弹窗 */
 }
 
 .popup-content textarea {
-    width: calc(100% - 20px); /* 减去内边距，与您的 input 类似 */
-    height: 100px; /* 设置一个合适的高度 */
-    padding: 10px; /* 增加内边距使输入更为舒适 */
-    margin: 5px 10px; /* 与您的 input 保持一致的外边距 */
-    resize: vertical; /* 允许用户垂直调整大小，但不允许水平调整，确保不破坏布局 */
+    width: calc(100% - 20px);
+    /* 减去内边距，与您的 input 类似 */
+    height: 100px;
+    /* 设置一个合适的高度 */
+    padding: 10px;
+    /* 增加内边距使输入更为舒适 */
+    margin: 5px 10px;
+    /* 与您的 input 保持一致的外边距 */
+    resize: vertical;
+    /* 允许用户垂直调整大小，但不允许水平调整，确保不破坏布局 */
 }
 
 .close {
@@ -220,13 +358,17 @@ h3 {
 
 .icon-label {
     cursor: pointer;
-    font-size: 30px; 
+    font-size: 30px;
     margin: 0 5px;
     transition: color 0.3s;
-    display: inline-block;  /* 添加这行 */
-    text-align: center;  /* 使文字和图标都居中 */
-    vertical-align: top;  /* 添加这行 */
-    width: 40px;  /* 添加一个固定的宽度 */
+    display: inline-block;
+    /* 添加这行 */
+    text-align: center;
+    /* 使文字和图标都居中 */
+    vertical-align: top;
+    /* 添加这行 */
+    width: 40px;
+    /* 添加一个固定的宽度 */
 }
 
 
@@ -240,10 +382,13 @@ h3 {
 .popup-content input[type="text"],
 .popup-content input[type="email"],
 .popup-content input[type="submit"] {
-    width: calc(100% - 20px); /* 减去内边距 */
-    max-width: 400px; /* 设置最大宽度 */
+    width: calc(100% - 20px);
+    /* 减去内边距 */
+    max-width: 400px;
+    /* 设置最大宽度 */
     padding: 10px;
-    margin: 5px 10px; /* 添加外边距 */
+    margin: 5px 10px;
+    /* 添加外边距 */
 }
 
 .popup-content input[type="text"]:focus,
@@ -254,29 +399,19 @@ h3 {
 .popup-content input[type="submit"] {
     background-color: green;
     color: white;
-    width: auto;  /* 更新这里 */
-    padding: 10px 20px; /* 更新这里 */
-    border: none; /* 更新这里 */
-    border-radius: 5px; /* 更新这里 */
+    width: auto;
+    /* 更新这里 */
+    padding: 10px 20px;
+    /* 更新这里 */
+    border: none;
+    /* 更新这里 */
+    border-radius: 5px;
+    /* 更新这里 */
 }
 
 
 
-.progress {
-    width: 27%;
-    margin: 20px auto;
-    height: 30px;
-    position: relative;
-    background: #eee;
-}
 
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background-color: #3498db;
-    position: absolute;
-    transition: width 0.4s;
-}
 
 
 
@@ -288,61 +423,67 @@ h3 {
 }
 
 /* 当选择某个评分后，该评分的颜色会变为预设的颜色 */
-.rating-1 input[type="radio"]:checked + i {
+.rating-1 input[type="radio"]:checked+i {
     color: red;
 }
 
-.rating-2 input[type="radio"]:checked + i {
+.rating-2 input[type="radio"]:checked+i {
     color: orangered;
 }
 
-.rating-3 input[type="radio"]:checked + i {
+.rating-3 input[type="radio"]:checked+i {
     color: orange;
 }
 
-.rating-4 input[type="radio"]:checked + i {
+.rating-4 input[type="radio"]:checked+i {
     color: yellowgreen;
 }
 
-.rating-5 input[type="radio"]:checked + i {
+.rating-5 input[type="radio"]:checked+i {
     color: green;
 }
 
 
 /* 通用按钮样式 */
 .commonButton,
-.copyButton, 
-.popup-content input[type="submit"], 
-.selectFileButton, 
-.addMoreFilesButton, 
+.copyButton,
+.popup-content input[type="submit"],
+.selectFileButton,
+.addMoreFilesButton,
 .uploadAndSummarizeButton {
-    padding: 10px 20px;  /* 减小按钮的尺寸 */
-    font-size: 16px;    /* 调整字体大小 */
-    border: none; 
+    padding: 10px 20px;
+    /* 减小按钮的尺寸 */
+    font-size: 16px;
+    /* 调整字体大小 */
+    border: none;
     border-radius: 5px;
     background: linear-gradient(135deg, #5EE1E6, #3498db);
     color: white;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-    margin-right: 10px; /* 右边间距 */
-    margin-bottom: 10px; /* 底部间距 */
+    margin-right: 10px;
+    /* 右边间距 */
+    margin-bottom: 10px;
+    /* 底部间距 */
 }
 
+
+
 .commonButton:hover,
-.copyButton:hover, 
-.popup-content input[type="submit"]:hover, 
-.selectFileButton:hover, 
-.addMoreFilesButton:hover, 
+.copyButton:hover,
+.popup-content input[type="submit"]:hover,
+.selectFileButton:hover,
+.addMoreFilesButton:hover,
 .uploadAndSummarizeButton:hover {
     background: linear-gradient(135deg, #4BC3D0, #217AB0);
     transform: scale(1.05);
 }
 
 .commonButton:active,
-.copyButton:active, 
-.popup-content input[type="submit"]:active, 
-.selectFileButton:active, 
-.addMoreFilesButton:active, 
+.copyButton:active,
+.popup-content input[type="submit"]:active,
+.selectFileButton:active,
+.addMoreFilesButton:active,
 .uploadAndSummarizeButton:active {
     transform: scale(1);
 }
@@ -355,22 +496,27 @@ h3 {
     height: 100px;
     right: 20px;
     bottom: 20px;
-    border: none; /* 您可以根据需要设置边框 */
-    background-color: #ff6600; /* 仅供参考，您可以设置自己的背景颜色 */
+    border: none;
+    /* 您可以根据需要设置边框 */
+    background-color: #ff6600;
+    /* 仅供参考，您可以设置自己的背景颜色 */
     padding: 0;
-    overflow: visible; /* 允许内容超出按钮边界 */
-    display: flex; /* 使用flex布局居中内容 */
-    align-items: center; /* 垂直居中内容 */
-    justify-content: center; /* 水平居中内容 */
+    overflow: visible;
+    /* 允许内容超出按钮边界 */
+    display: flex;
+    /* 使用flex布局居中内容 */
+    align-items: center;
+    /* 垂直居中内容 */
+    justify-content: center;
+    /* 水平居中内容 */
 }
 
 .vertical-text {
     transform: rotate(-90deg);
-    transform-origin: center center; 
+    transform-origin: center center;
     white-space: nowrap;
 }
 
 #feedbackButton:hover {
     transform: scale(1.1);
 }
-

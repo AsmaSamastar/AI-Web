@@ -2,42 +2,51 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/static/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="utf-8" />
+    <link href="/static/styles.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.js"></script>
 </head>
 
 <body>
 
-    <!-- <nav>
-        <ul>
-            <li><a href="https://samastar.co.uk/">Home</a></li>
-        </ul>
-    </nav> -->
+    <img src="/images/logo.png" alt="Sumarizer Logo" class="logo">
 
-    <h2>Upload your PDF file</h2>
-    <div class="pdfUploadContainer">
-        <!-- <h2>Upload your PDF file</h2> -->
-        <form class="copyButton" id="pdfUploadForm" action="https://coral-app-qzfcm.ondigitalocean.app/upload" method="post"
-            enctype="multipart/form-data">
-            <input type="file" id="pdfUpload" name="pdfUpload" accept=".pdf" multiple onchange="addMoreFiles()">
-            <button class="copyButton" type="button" id="addFilesButton">Add More Files</button>
-        </form>
+    <p class="description-text">Summarize papers and extract critical bioprocessing information including purification
+        and culturing methods in moments saving you time for what truly matters!</p>
 
-        
-        <ul id="fileList"></ul>
+    <!-- Step 1: Upload papers -->
+    <div id="step1">
+
+        <h2>Upload your papers</h2>
+
+        <div class="pdfUploadContainer">
+
+            <form action="https://coral-app-qzfcm.ondigitalocean.app/upload" enctype="multipart/form-data"
+                id="pdfUploadForm" method="post">
+                <input accept=".pdf" id="pdfUpload" multiple="" name="pdfUpload" onchange="addMoreFiles()"
+                    style="display: none;" type="file" />
+                <button class="buttonHover" id="addFilesButton" type="button">Select Files</button>
+                <p class="upload-instructions">*Upload up to 3 papers at a time</p>
+            </form>
+
+            <ul id="fileList"></ul>
+        </div>
+
+        <div class="pdfUploadContainer">
+            <button class="buttonHover yellowButton" type="button" id="uploadAndGenerateSummaryButton">Upload PDF and
+                Generate
+                Summary</button>
+        </div>
+
     </div>
 
-    <div class="pdfUploadContainer">
-        <button class="copyButton" type="button" id="uploadAndGenerateSummaryButton">Upload PDF and Generate Summary</button>
-    </div>
 
+    <!-- <h3>PDF Text</h3>
 
-    <h3>PDF Text</h3> 
-
-    <textarea id="output" class="textArea" readonly></textarea> 
+    <textarea id="output" class="textArea" readonly></textarea>
 
     <p id="fileIndex">0 / 0</p>
 
@@ -46,103 +55,113 @@
         <div class="spacer"></div>
         <button id="nextButton" class="copyButton">Next</button>
         <div class="spacer"></div>
-        <button id="copyButton" class="copyButton">Copy Text</button> 
+        <button id="copyButton" class="copyButton">Copy Text</button>
     </div>
 
     <div class="arrowContainer">
         <span>&darr;</span>
-    </div>
+    </div> -->
 
-    <h3>PDF Summary</h3>
-    <table id="summaryTable">
-    </table>
-
-    
-    <div id="progressBarContainer" class="progress">
-        <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
-            aria-valuemax="100"></div>
-    </div>
-
-    
-    <p id="summaryIndex">0 / 0</p>
-
-    
-    <div class="buttonContainer">
-        <button id="prevSummaryButton" class="copyButton">Previous</button>
-        <div class="spacer"></div>
-        <button id="nextSummaryButton" class="copyButton">Next</button>
-        <!-- <div class="spacer"></div>
-        <button id="downloadButton" class="copyButton">Download</button> -->
-        <div class="spacer"></div>
-        <button id="sendEmailButton" class="copyButton">Send Summary</button>
-    </div>
-
-    <div id="emailPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="document.getElementById('emailPopup').style.display='none'">&times;</span>
-            <p>To send the summary to your email please fill the following then click send summary button</p>
-            <form id="emailForm">
-                <input type="text" id="name" name="name" placeholder="Name"><br>
-                <input type="email" id="email" name="email" placeholder="Email"><br>
-                <input type="submit" value="Send Summary">
-            </form>
+    <!-- Step 2: Show progress bar -->
+    <div id="step2" style="display: none;">
+        <h2>Crafting a concise summary for you ...</h2>
+        <h2>Please wait ...</h2>
+        <div id="progressBarContainer" class="progress">
+            <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                aria-valuemax="100"></div>
         </div>
+
     </div>
 
-    <textarea id="summary" style="display:none;"></textarea>
 
-    <div id="feedbackPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="document.getElementById('feedbackPopup').style.display='none'">&times;</span>
-            <p>Overall, how satisfied or dissatisfied are you with this website?</p>
-            <form id="feedbackForm">
-                <label for="rating">Rating:</label><br>
-                <div id="rating">
-                    <label class="icon-label rating-1">
-                        <input type="radio" name="rating" value="1" hidden>
-                        <i class="far fa-frown"></i>
-                        <div class="rating-text">Very dissatisfied</div>
-                    </label>
-                    <label class="icon-label rating-2">
-                        <input type="radio" name="rating" value="2" hidden>
-                        <i class="far fa-frown-open"></i>
-                    </label>
-                    <label class="icon-label rating-3">
-                        <input type="radio" name="rating" value="3" hidden>
-                        <i class="far fa-meh"></i>
-                    </label>
-                    <label class="icon-label rating-4">
-                        <input type="radio" name="rating" value="4" hidden>
-                        <i class="far fa-smile"></i>
-                    </label>
-                    <label class="icon-label rating-5">
-                        <input type="radio" name="rating" value="5" hidden>
-                        <i class="far fa-laugh"></i>
-                        <div class="rating-text">Very satisfied</div>
-                    </label>
-                </div>
+    <!-- Step 3: Show summary -->
+    <div id="step3" style="display: none;">
 
-                <br>
-                <textarea id="feedbackText" name="feedbackText" placeholder="Leave your comments..."></textarea><br>
-                <input type="submit" value="Submit Feedback">
-            </form>
+        <h2>PDF Summary</h2>
+        <table id="summaryTable">
+        </table>
+        <p id="summaryIndex">0 / 0</p>
+
+
+        <div class="buttonContainer">
+            <button id="prevSummaryButton" class="buttonHover yellowButton">Prev</button>
+
+            <button id="sendEmailButton" class="buttonHover yellowButton">Send summary to my email</button>
+
+            <button id="nextSummaryButton" class="buttonHover yellowButton">Next</button>
+
         </div>
+
+        <div id="emailPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="document.getElementById('emailPopup').style.display='none'">&times;</span>
+                <p>Would you like to have this summary delivered to your inbox?</p>
+                <p>Enter your name and email, and we'll send it right away!</p>
+                <form id="emailForm">
+                    <input type="text" id="name" name="name" placeholder="Name"><br>
+                    <input type="email" id="email" name="email" placeholder="Email"><br>
+                    <input type="submit" value="Send Summary">
+                </form>
+            </div>
+        </div>
+
+        <textarea id="summary" style="display:none;"></textarea>
+
+        <div id="feedbackPopup" class="popup">
+            <div class="popup-content">
+                <span class="close"
+                    onclick="document.getElementById('feedbackPopup').style.display='none'">&times;</span>
+                <p>Overall, how satisfied or dissatisfied are you with this website?</p>
+                <form id="feedbackForm">
+                    <label for="rating">Rating:</label><br>
+                    <div id="rating">
+                        <label class="icon-label rating-1">
+                            <input type="radio" name="rating" value="1" hidden>
+                            <i class="far fa-frown"></i>
+                            <div class="rating-text">Very dissatisfied</div>
+                        </label>
+                        <label class="icon-label rating-2">
+                            <input type="radio" name="rating" value="2" hidden>
+                            <i class="far fa-frown-open"></i>
+                        </label>
+                        <label class="icon-label rating-3">
+                            <input type="radio" name="rating" value="3" hidden>
+                            <i class="far fa-meh"></i>
+                        </label>
+                        <label class="icon-label rating-4">
+                            <input type="radio" name="rating" value="4" hidden>
+                            <i class="far fa-smile"></i>
+                        </label>
+                        <label class="icon-label rating-5">
+                            <input type="radio" name="rating" value="5" hidden>
+                            <i class="far fa-laugh"></i>
+                            <div class="rating-text">Very satisfied</div>
+                        </label>
+                    </div>
+
+                    <br>
+                    <textarea id="feedbackText" name="feedbackText" placeholder="Leave your comments..."></textarea><br>
+                    <input type="submit" value="Submit Feedback">
+                </form>
+            </div>
+        </div>
+
+        <button type="button" id="feedbackButton" class="copyButton">
+            <span class="vertical-text">Feedback</span>
+        </button>
+
     </div>
 
-    <button type="button" id="feedbackButton" class="copyButton">
-        <span class="vertical-text">Feedback</span>
-    </button>
-    
 
     <script>
 
         var currentTextIndex = 0;
         var currentPromptIndex = 0;
 
-        
+
         var allFiles = [];
 
-        
+
         function displayFileNames() {
             var ul = document.getElementById('fileList');
             ul.innerHTML = '';
@@ -153,7 +172,7 @@
             }
         }
 
-        
+
         function addMoreFiles() {
             var input = document.getElementById('pdfUpload');
             for (var i = 0; i < input.files.length; i++) {
@@ -167,11 +186,11 @@
             document.getElementById('pdfUpload').click();
         });
 
-        
+
         var texts = [];
         var currentIndex = 0;
 
-        
+
         document.getElementById('prevButton').addEventListener('click', function () {
             if (currentIndex > 0) {
                 currentIndex--;
@@ -193,7 +212,7 @@
         });
 
 
-        
+
         document.getElementById('copyButton').addEventListener('click', function () {
             var copyText = document.getElementById("output");
             copyText.select();
@@ -201,7 +220,7 @@
             alert("Text has been copied");
         });
 
-        
+
         var summaries = [];
         var currentSummaryIndex = 0;
 
@@ -221,32 +240,32 @@
                     cell2.innerText = summary.content;
                 });
 
-                
+
                 document.getElementById('summaryIndex').innerText = (currentSummaryIndex + 1) + ' / ' + summaries.length;
             }
         }
 
-        
+
         document.getElementById('prevSummaryButton').addEventListener('click', function () {
             if (currentSummaryIndex > 0) {
                 currentSummaryIndex--;
-                updateSummaryDisplay(); 
+                updateSummaryDisplay();
             }
         });
 
         document.getElementById('nextSummaryButton').addEventListener('click', function () {
             if (currentSummaryIndex < summaries.length - 1) {
                 currentSummaryIndex++;
-                updateSummaryDisplay(); 
+                updateSummaryDisplay();
             }
         });
 
         var prompts = [
             { title: 'Title', prompt: 'What is the title of the content? Please return the title only' },
-            { title: 'Author', prompt: 'List the names of the authors from the content. Please return the name only.' },
-            { title: 'Summarising culturing conditions', prompt: 'summarize content from the Materials and methods under cell culture section in the text and provide cell culture conditions of the inoculum or start culture and culture conditions in the fermentor / bioreactor if applicable' },
-            { title: 'Summarise purification conditions', prompt: 'extract content from the Materials and methods section in the text and provide in details cell purification conditions and mention all steps, chemicals, buffers used with quantities. steps may include: isolation and dissolution of inclusion bodies, renaturation, trypsinization, precipitation, chromatography, HPLC , and any other reactions used - summarise them in order and exclude cell culture conditions' },
-            { title: 'Extracting material and manufacturers', prompt: 'summarize content from the materials section in the text and provide bullet points about: names of Materials and chemicals used and names of manufacturer for each one. Example: Antifoam from Sigma L-proline from Sigma EDTA from Sigma. And Only Keep the manufacturer company names and remove all "manufacturer" words if it exists and if it is repeated in each line' },
+            { title: 'Authors', prompt: 'List the names of the authors from the content. Please return the name only.' },
+            { title: 'Culturing conditions', prompt: 'summarize content from the Materials and methods under cell culture section in the text and provide cell culture conditions of the inoculum or start culture and culture conditions in the fermentor / bioreactor if applicable' },
+            { title: 'Purification conditions', prompt: 'extract content from the Materials and methods section in the text and provide in details cell purification conditions and mention all steps, chemicals, buffers used with quantities. steps may include: isolation and dissolution of inclusion bodies, renaturation, trypsinization, precipitation, chromatography, HPLC , and any other reactions used - summarise them in order and exclude cell culture conditions' },
+            { title: 'Materials & Manufacturers', prompt: 'summarize content from the materials section in the text and provide bullet points about: names of Materials and chemicals used and names of manufacturer for each one. Example: Antifoam from Sigma L-proline from Sigma EDTA from Sigma. And Only Keep the manufacturer company names and remove all "manufacturer" words if it exists and if it is repeated in each line' },
 
             // Add more prompts and titles...
         ];
@@ -273,12 +292,12 @@
             });
         }
 
-        
+
         function generateSummaries() {
 
-            summaries = new Array(texts.length); 
+            summaries = new Array(texts.length);
             for (let i = 0; i < texts.length; i++) {
-                summaries[i] = []; 
+                summaries[i] = [];
             }
             var summaryTable = document.getElementById('summaryTable');
             summaryTable.innerHTML = '';
@@ -312,6 +331,7 @@
 
 
                     updateSummaryDisplay();
+                    updateProgressBar(100); // Once all summaries are generated, set progress bar to 100%.
 
                     document.getElementById('progressBarContainer').style.display = 'none';
                 })
@@ -322,6 +342,8 @@
 
             updateProgressBar(0); // Reset the progress bar at the start of upload
 
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
 
             var formData = new FormData();
             for (var i = 0; i < allFiles.length; i++) {
@@ -344,9 +366,13 @@
 
                     document.getElementById('fileIndex').innerText = '1 / ' + texts.length;
 
-                    generateSummaries(); 
+                    generateSummaries();
                 })
-                .catch(error => console.error(error));
+                .catch(error => {
+                    console.error(error);
+                    // Ideally, add some user feedback here to inform them the upload failed.
+                    alert('Upload failed. Please try again.');
+                });
 
 
             document.getElementById('fileList').innerHTML = '';
@@ -420,6 +446,10 @@
             var progressBar = document.getElementById('progressBar');
             progressBar.style.width = value + "%";
             progressBar.setAttribute('aria-valuenow', value);
+            if (value == 100) {
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
+            }
         }
 
 
@@ -455,6 +485,16 @@
         document.getElementById('feedbackForm').addEventListener('submit', function (event) {
             event.preventDefault();
             sendFeedback();
+        });
+
+        document.getElementById('uploadAndGenerateSummaryButton').addEventListener('click', function () {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+            // Simulate progress bar filling up and then displaying step 3.
+            setTimeout(function () {
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
+            }, 3000); // Here I'm simulating 3 seconds for progress bar, adjust as needed.
         });
 
 
