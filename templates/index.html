@@ -116,7 +116,6 @@
                 <p>Your feedback matters! How did you find the summary?</p>
                 <p>Please share your thoughts to help us improve and serve you better.</p>
                 <form id="feedbackForm">
-                    <label for="rating">Rating:</label><br>
                     <div id="rating">
                         <label class="icon-label rating-1">
                             <input type="radio" name="rating" value="1" hidden>
@@ -144,7 +143,7 @@
 
                     <br>
                     <textarea id="feedbackText" name="feedbackText"
-                        placeholder="We value your input! Please leave your commennts here ..."></textarea><br>
+                        placeholder="We value your input! Please leave your comments here ..."></textarea><br>
                     <input type="submit" value="Submit feedback">
                 </form>
             </div>
@@ -469,8 +468,18 @@
             document.getElementById('feedbackPopup').style.display = 'block';
         });
 
+        function getSelectedRating() {
+            var ratings = document.getElementsByName('rating');
+            for (var i = 0; i < ratings.length; i++) {
+                if (ratings[i].checked) {
+                    return ratings[i].value;
+                }
+            }
+            return null;  // or a default value
+        }
+
         function sendFeedback() {
-            var rating = document.getElementById('rating').value;
+            var rating = getSelectedRating();
             var feedbackText = document.getElementById('feedbackText').value;
 
             fetch('/sendFeedback', {

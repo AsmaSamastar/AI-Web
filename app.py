@@ -271,20 +271,22 @@ def send_email():
 
 @app.route('/sendFeedback', methods=['POST'])
 def send_feedback():
+    try:
+        data = request.json
+        rating = data['rating']
+        feedback = data['feedback']
 
-    data = request.json
-    rating = data['rating']
-    feedback = data['feedback']
 
+        subject = "New Feedback Received"
+        content = f"Rating: {rating}\n\nFeedback:\n{feedback}"
 
-    subject = "New Feedback Received"
-    content = f"Rating: {rating}\n\nFeedback:\n{feedback}"
+        
+        to_email = 'hanchengzuo@outlook.com'
+        _, _, _ = send_email_with_attachment(to_email, subject, content, None)
 
-    
-    to_email = 'admin@ai.samastar.co.uk'
-    _, _, _ = send_email_with_attachment(to_email, subject, content, None)
-
-    return jsonify({'status': 'ok'})
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
 
 
 if __name__ == '__main__':
