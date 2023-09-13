@@ -78,7 +78,8 @@
     <!-- Step 3: Show summary -->
     <div id="step3" style="display: none;">
 
-        <h2>PDF Summary</h2>
+        <h2>Summary generated successfully!</h2>
+        <p id="summaryInfo">Key bioprocessing insights are now at your fingertips!</p>
         <table id="summaryTable">
         </table>
         <p id="summaryIndex">0 / 0</p>
@@ -112,7 +113,8 @@
             <div class="popup-content">
                 <span class="close"
                     onclick="document.getElementById('feedbackPopup').style.display='none'">&times;</span>
-                <p>Overall, how satisfied or dissatisfied are you with this website?</p>
+                <p>Your feedback matters! How did you find the summary?</p>
+                <p>Please share your thoughts to help us improve and serve you better.</p>
                 <form id="feedbackForm">
                     <label for="rating">Rating:</label><br>
                     <div id="rating">
@@ -141,15 +143,19 @@
                     </div>
 
                     <br>
-                    <textarea id="feedbackText" name="feedbackText" placeholder="Leave your comments..."></textarea><br>
-                    <input type="submit" value="Submit Feedback">
+                    <textarea id="feedbackText" name="feedbackText"
+                        placeholder="We value your input! Please leave your commennts here ..."></textarea><br>
+                    <input type="submit" value="Submit feedback">
                 </form>
             </div>
         </div>
 
-        <button type="button" id="feedbackButton" class="copyButton">
-            <span class="vertical-text">Feedback</span>
-        </button>
+        <div class="feedbackButtonContainer">
+            <button type="button" id="feedbackButton" class="buttonHover yellowButton">
+                <span>Feedback</span>
+            </button>
+        </div>
+
 
     </div>
 
@@ -332,7 +338,7 @@
 
 
                     updateSummaryDisplay();
-                    updateProgressBar(100); // Once all summaries are generated, set progress bar to 100%.
+                    updateProgressBar(100);
 
                     document.getElementById('progressBarContainer').style.display = 'none';
                 })
@@ -376,7 +382,7 @@
                 })
                 .catch(error => {
                     console.error(error);
-                    // Ideally, add some user feedback here to inform them the upload failed.
+
                     alert('Upload failed. Please try again.');
                 });
 

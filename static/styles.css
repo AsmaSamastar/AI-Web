@@ -19,9 +19,9 @@ body {
 }
 
 .upload-instructions {
-    font-size: 0.9rem;  
-    color: #888;       
-    margin-top: 10px;  
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 10px;
 }
 
 #pdfUploadForm {
@@ -34,93 +34,110 @@ body {
     width: 100%;
 }
 
-.buttonHover{
+.buttonHover {
     cursor: pointer;
-    transition: 0.3s;               /* 添加过渡效果以平滑地改变颜色 */
+    transition: 0.3s;
 }
 
-.buttonHover:hover{
+.buttonHover:hover {
     transform: scale(1.05);
 }
-.buttonHover:active{
+
+.buttonHover:active {
     transform: scale(1);
 }
 
 #addFilesButton {
     margin-left: auto;
     margin-right: auto;
-    background-color: transparent;   /* 设置背景为透明 */
-    border: 2px solid #d6dd32;      /* 设置边框颜色为 #d6dd32 */
-    border-radius: 25px;            /* 设置圆角 */
-    padding: 20px 100px;       /* 增大内部间距 */            /* 为按钮增加一些内部间距，使其看起来更像一个长条形状 */
-    font-size: 22px;         /* 增大字体大小 */
+    background-color: transparent;
+    border: 2px solid blue;
+    border-radius: 50px;
+    padding: 20px 100px;
+    font-size: 22px;
 
 }
 
 #addFilesButton:hover {
-    background-color: #d6dd32;      /* 鼠标悬停时的背景颜色 */
-    color: white;                   /* 鼠标悬停时的文字颜色 */
+    background-color: #d6dd32;
+    color: white;
 }
 
-.yellowButton{
-    background-color: #d6dd32;       /* 设置背景颜色为 #d6dd32 */
-    border-radius: 25px;             /* 设置圆角 */
-    border: 2px solid black;         /* 设置边框颜色为黑色 */
-    color: black;                    /* 设置按钮文本颜色为黑色 */
-    transition: background-color 0.3s, transform 0.3s; /* 添加过渡效果以平滑地改变颜色 */
+.yellowButton {
+    background-color: #d6dd32;
+    border-radius: 25px;
+    border: 2px solid black;
+    color: black;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .yellowButton:hover {
-    background-color: #b5c42a;      /* 鼠标悬停时的背景颜色，稍微变深 */
-    color: white;                   /* 鼠标悬停时的文字颜色变为白色 */
+    background-color: #b5c42a;
+    color: white;
 }
 
 #uploadAndGenerateSummaryButton {
-    padding: 20px 30px;              /* 为按钮增加一些内部间距，使其看起来更像一个长条形状 */
+    padding: 20px 30px;
     font-size: 22px;
 }
 
 .progress {
-    width: 100%;                  /* 保持原始宽度 */
-    margin: 20px auto;          /* 保持原始外边距 */
-    height: 30px;               /* 保持原始高度 */
-    position: relative;         /* 保持原始定位 */
-    background-color: #eee;     /* 设置默认背景颜色为#eee */
-    border: 2px solid black;    /* 设置边框颜色为黑色 */
-    border-radius: 25px;        /* 设置圆角 */
+    width: 100%;
+    margin: 20px auto;
+    height: 30px;
+    position: relative;
+    background-color: #eee;
+    border: 2px solid black;
+    border-radius: 25px;
 }
 
 .progress-bar {
-    height: 100%;               /* 保持原始高度 */
-    width: 0;                   /* 保持原始宽度 */
-    background-color: #d6dd32;  /* 设置加载时的颜色为#d6dd32 */
-    position: absolute;         /* 保持原始定位 */
-    transition: width 0.4s;     /* 保持原始过渡效果 */
-    border-radius: 23px;        /* 设置圆角，稍小于外部容器以确保边缘不超出 */
+    height: 100%;
+    width: 0;
+    background-color: #d6dd32;
+    position: absolute;
+    transition: width 0.4s;
+    border-radius: 23px;
 }
 
 #nextSummaryButton,
 #prevSummaryButton {
-    padding: 10px 20px;              /* 为按钮增加一些内部间距，使其看起来更像一个长条形状 */
+    padding: 10px 20px;
     font-size: 16px;
 }
 
 #sendEmailButton {
-    padding: 10px 30px;              /* 为按钮增加一些内部间距，使其看起来更像一个长条形状 */
+    padding: 10px 30px;
     font-size: 16px;
+}
+
+#feedbackButton {
+    padding: 5px 20px;
+    font-size: 13px;
+}
+
+#step3 {
+    width: 100%;
+}
+
+.feedbackButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .buttonContainer {
     display: flex;
-    justify-content: center; /* 主轴上居中 */
-    align-items: center;     /* 交叉轴上居中 */
-    width: 100%;              /* 确保容器宽度足够 */
-    flex-direction: row;     /* 默认为行，但为了明确，我们可以指定为row */
-    height: 100%;            /* 根据你的需要来调整，可能需要为这个容器指定高度 */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    height: 100%;
 }
 
-.buttonContainer > button:not(:last-child) {
-    margin-right: 20px; /* 根据需要调整按钮之间的间距 */
+.buttonContainer>button:not(:last-child) {
+    margin-right: 20px;
 }
 
 
@@ -133,9 +150,15 @@ h3 {
     margin-bottom: 15px;
 }
 
-#summaryIndex{
+#summaryIndex {
     text-align: center;
 }
+
+#summaryInfo {
+    margin-top: 30px;
+    text-align: center;
+}
+
 
 
 
@@ -254,39 +277,39 @@ textarea:focus {
 
 
 nav ul {
-    /* 在这里添加你的导航列表样式 */
+
     list-style-type: none;
     padding: 0;
 }
 
 nav ul li {
-    /* 在这里添加你的列表项样式 */
+
     display: inline;
     margin-right: 10px;
 }
 
 nav ul li a {
-    /* 在这里添加你的链接样式 */
+
     text-decoration: none;
 }
 
 
-/* 新增标题样式 */
+
 h3 {
     margin-bottom: 5px;
-    /* 设置标题元素的下边距为10像素 */
+
 }
 
-/* 设置文本框的样式 */
+
 .textArea {
     width: 70%;
-    /* 宽度占据页面的60% */
+
     height: 65vh;
-    /* 高度占据页面的50% */
+
     margin-top: 5px;
-    /* 上边距为20像素，使其离上方的内容有一定的距离 */
+
     resize: none;
-    /* 禁止用户改变文本框的尺寸 */
+
 }
 
 .copyButton {
@@ -320,10 +343,10 @@ h3 {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    /* 黑色背景半透明效果，这将作为遮罩效果 */
+
     display: none;
     z-index: 1000;
-    /*保证弹窗在其他元素之上*/
+
 }
 
 .popup-content {
@@ -331,32 +354,32 @@ h3 {
     text-align: center;
     padding: 20px;
     background-color: #fff;
-    /* 这将确保弹窗内容的背景是白色的 */
+
     width: 80%;
-    /* 设置宽度为屏幕的 80% */
+
     max-width: 600px;
-    /* 设置更大的最大宽度 */
+
     position: absolute;
-    /* 相对于 .popup 定位 */
+
     top: 50%;
-    /* 位于页面垂直中央 */
+
     left: 50%;
-    /* 位于页面水平中央 */
+
     transform: translate(-50%, -50%);
-    /* 使用 transform 居中弹窗 */
+
 }
 
 .popup-content textarea {
     width: calc(100% - 20px);
-    /* 减去内边距，与您的 input 类似 */
+
     height: 100px;
-    /* 设置一个合适的高度 */
+
     padding: 10px;
-    /* 增加内边距使输入更为舒适 */
+
     margin: 5px 10px;
-    /* 与您的 input 保持一致的外边距 */
+
     resize: vertical;
-    /* 允许用户垂直调整大小，但不允许水平调整，确保不破坏布局 */
+
 }
 
 .close {
@@ -375,13 +398,13 @@ h3 {
     margin: 0 5px;
     transition: color 0.3s;
     display: inline-block;
-    /* 添加这行 */
+
     text-align: center;
-    /* 使文字和图标都居中 */
+
     vertical-align: top;
-    /* 添加这行 */
+
     width: 40px;
-    /* 添加一个固定的宽度 */
+
 }
 
 
@@ -396,12 +419,12 @@ h3 {
 .popup-content input[type="email"],
 .popup-content input[type="submit"] {
     width: calc(100% - 20px);
-    /* 减去内边距 */
+
     max-width: 400px;
-    /* 设置最大宽度 */
+
     padding: 10px;
     margin: 10px 10px;
-    /* 添加外边距 */
+
 }
 
 .popup-content input[type="text"]:focus,
@@ -418,12 +441,11 @@ h3 {
 
 
 
-/* 默认颜色为灰色 */
+
 .icon-label i {
     color: gray;
 }
 
-/* 当选择某个评分后，该评分的颜色会变为预设的颜色 */
 .rating-1 input[type="radio"]:checked+i {
     color: red;
 }
@@ -445,7 +467,6 @@ h3 {
 }
 
 
-/* 通用按钮样式 */
 .commonButton,
 .copyButton,
 .popup-content input[type="submit"],
@@ -453,19 +474,16 @@ h3 {
 .addMoreFilesButton,
 .uploadAndSummarizeButton {
     padding: 10px 20px;
-    /* 减小按钮的尺寸 */
+
     font-size: 16px;
-    /* 调整字体大小 */
     border: 2px solid black;
-    border-radius: 25px; 
+    border-radius: 25px;
     background-color: #d6dd32;
     color: black;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     margin-right: 10px;
-    /* 右边间距 */
     margin-bottom: 10px;
-    /* 底部间距 */
 }
 
 
@@ -477,6 +495,7 @@ h3 {
 .addMoreFilesButton:hover,
 .uploadAndSummarizeButton:hover {
     background-color: #b5c42a;
+    color: white;
     transform: scale(1.05);
 }
 
@@ -491,33 +510,10 @@ h3 {
 
 
 
-#feedbackButton {
-    position: fixed;
-    width: 40px;
-    height: 100px;
-    right: 20px;
-    bottom: 20px;
-    border: none;
-    /* 您可以根据需要设置边框 */
-    background-color: #b5c42a;
-    /* 仅供参考，您可以设置自己的背景颜色 */
-    padding: 0;
-    overflow: visible;
-    /* 允许内容超出按钮边界 */
-    display: flex;
-    /* 使用flex布局居中内容 */
-    align-items: center;
-    /* 垂直居中内容 */
-    justify-content: center;
-    /* 水平居中内容 */
-}
+
 
 .vertical-text {
     transform: rotate(-90deg);
     transform-origin: center center;
     white-space: nowrap;
-}
-
-#feedbackButton:hover {
-    transform: scale(1.1);
 }
