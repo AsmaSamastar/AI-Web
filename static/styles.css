@@ -81,7 +81,7 @@ body {
 }
 
 .progress {
-    width: 30%;                  /* 保持原始宽度 */
+    width: 100%;                  /* 保持原始宽度 */
     margin: 20px auto;          /* 保持原始外边距 */
     height: 30px;               /* 保持原始高度 */
     position: relative;         /* 保持原始定位 */
@@ -400,7 +400,7 @@ h3 {
     max-width: 400px;
     /* 设置最大宽度 */
     padding: 10px;
-    margin: 5px 10px;
+    margin: 10px 10px;
     /* 添加外边距 */
 }
 
