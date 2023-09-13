@@ -276,12 +276,10 @@ def send_feedback():
         rating = data['rating']
         feedback = data['feedback']
 
-
         subject = "New Feedback Received"
         content = f"Rating: {rating}\n\nFeedback:\n{feedback}"
 
-        
-        to_email = 'hanchengzuo@outlook.com'
+        to_email = 'sumarizer-feedback@samastar.co.uk'
         _, _, _ = send_email_with_attachment(to_email, subject, content, None)
 
         return jsonify({'status': 'ok'})
