@@ -341,7 +341,12 @@
 
         document.getElementById('uploadAndGenerateSummaryButton').addEventListener('click', function () {
 
-            updateProgressBar(0); // Reset the progress bar at the start of upload
+            if (allFiles.length === 0) {
+                alert('Please select files to upload.');
+                return;
+            }
+
+            updateProgressBar(0);
 
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
@@ -487,18 +492,6 @@
             event.preventDefault();
             sendFeedback();
         });
-
-        document.getElementById('uploadAndGenerateSummaryButton').addEventListener('click', function () {
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'block';
-            // Simulate progress bar filling up and then displaying step 3.
-            setTimeout(function () {
-                document.getElementById('step2').style.display = 'none';
-                document.getElementById('step3').style.display = 'block';
-            }, 3000); // Here I'm simulating 3 seconds for progress bar, adjust as needed.
-        });
-
-
 
     </script>
 
