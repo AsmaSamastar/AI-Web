@@ -48,20 +48,16 @@ body {
 }
 
 #addFilesButton {
-    margin-left: auto;
-    margin-right: auto;
-    background-color: transparent;
-    border: 2px solid blue;
     border-radius: 50px;
     padding: 20px 100px;
     font-size: 22px;
 
 }
 
-#addFilesButton:hover {
+/* #addFilesButton:hover {
     background-color: #d6dd32;
     color: white;
-}
+} */
 
 .yellowButton {
     background-color: #d6dd32;
@@ -77,6 +73,7 @@ body {
 }
 
 #uploadAndGenerateSummaryButton {
+    border-radius: 50px;
     padding: 20px 30px;
     font-size: 22px;
 }
