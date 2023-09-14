@@ -12,7 +12,7 @@
 
 <body>
 
-    <img src="/static/logo.png" alt="Sumarizer Logo" class="logo">
+    <a href="https://sumarizer.com/"><img src="/static/logo.png" alt="Sumarizer Logo" class="logo"></a>
 
     <p class="description-text">Summarize papers and extract critical bioprocessing information including purification
         and culturing methods in moments saving you time for what truly matters!</p>
@@ -59,7 +59,7 @@
     
             <ul id="fileList"></ul>
     
-            <button class="buttonHover yellowButton action-button" type="button" id="uploadAndGenerateSummaryButton">Upload PDF and Generate Summary</button>
+            <button class="buttonHover yellowButton action-button" type="button" id="uploadAndGenerateSummaryButton">Upload Files and Generate Summary</button>
         </div>
     </div>
     
@@ -109,10 +109,14 @@
         <div class="buttonContainer">
             <button id="prevSummaryButton" class="buttonHover yellowButton">Prev</button>
 
-            <button id="sendEmailButton" class="buttonHover yellowButton">Send summary to my email</button>
+            <button id="sendEmailButton" class="buttonHover yellowButton">Send Summary to My Email</button>
 
             <button id="nextSummaryButton" class="buttonHover yellowButton">Next</button>
 
+        </div>
+
+        <div class="homeButtonContainer">
+            <a href="https://sumarizer.com/"><button id="returnHomeButton" class="buttonHover yellowButton returnHome">Return to Home</button></a>
         </div>
 
         <div id="emailPopup" class="popup">

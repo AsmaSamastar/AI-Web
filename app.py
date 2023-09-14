@@ -214,7 +214,7 @@ def create_pdf(pdf_path, summaries_data_list):
             # 网站链接
             self.cell(0, 10, 'sumarizer.com', 0, 0, 'R')
 
-    pdf = FPDF()
+    pdf = PDF()
     pdf.add_page()
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
 

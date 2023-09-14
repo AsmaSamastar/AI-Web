@@ -557,3 +557,31 @@ h3 {
     transform-origin: center center;
     white-space: nowrap;
 }
+
+
+.homeButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px; /* 这将给按钮添加一些上边距，使其与前三个按钮有一些间隔 */
+}
+
+:root {
+    --btn-width: 100px;   /* 按钮的默认宽度 */
+    --btn-padding: 10px;  /* 按钮的内边距 */
+    --btn-border: 2px;    /* 按钮的边框宽度 */
+    --btn-margin: 20px;   /* 按钮的右侧外边距 */
+}
+
+.returnHome {
+    width: calc(3 * (var(--btn-width) + 2 * var(--btn-padding) + 2 * var(--btn-border)) + 2 * var(--btn-margin) + 40px);
+    text-align: center;
+}
+
+#returnHomeButton {
+    padding: 10px 30px;
+    font-size: 16px;
+}
+
+
