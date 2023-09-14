@@ -521,7 +521,7 @@
                     return ratings[i].value;
                 }
             }
-            return null;  // or a default value
+            return null;
         }
 
         function sendFeedback() {
@@ -556,16 +556,14 @@
 
         function showErrorModal(message) {
             document.getElementById('errorMessage').innerText = message;
-            document.body.style.overflow = 'hidden';  /* Prevent scrolling when modal is open */
+            document.body.style.overflow = 'hidden';
             document.getElementById('errorModal').style.display = 'block';
         }
 
         document.getElementById('backToHomeButton').addEventListener('click', function () {
-            // Hide the error modal and show the home page (or any other default state you want)
-            document.body.style.overflow = '';  /* Restore scrolling */
+            document.body.style.overflow = ''; 
             document.getElementById('errorModal').style.display = 'none';
-            document.getElementById('step2').style.display = 'none'; // Hide the progress bar
-            // Show the home page or the main page (assuming it's step1 for this example)
+            document.getElementById('step2').style.display = 'none'; 
             document.getElementById('step1').style.display = 'block';
         });
 

@@ -230,41 +230,23 @@ def create_pdf(pdf_path, summaries_data_list):
     pdf.add_font('DejaVu', 'I', 'DejaVuSerifCondensed-Italic.ttf', uni=True)
     pdf.add_page()
 
-    def split_text(text, max_width, font_size):
-        words = text.split(' ')
-        lines = []
-        line = ''
-        for word in words:
-            if pdf.get_string_width(line + word) < max_width:
-                line += ' ' + word
-            else:
-                lines.append(line)
-                line = word
-        lines.append(line)
-        return lines
+    content_font_size = 11
+    title_font_size = content_font_size + 3 
 
-    font_size = 11
-    pdf.set_font('DejaVu', size=font_size)
-
-    col_widths = [80, 110]
-    max_width = col_widths[0] - 2
+    cell_width = 190
 
     for summaries_data in summaries_data_list:
         for summary_group in summaries_data:
             title = summary_group['title']
             content = summary_group['content']
 
-            title_lines = split_text(title, max_width, font_size)
-            num_lines = len(title_lines)
+            pdf.set_font('DejaVu', 'B', title_font_size)
+            pdf.cell(cell_width, 10, txt=title, border=1)
+            pdf.ln() 
 
-            for i, line in enumerate(title_lines):
-                pdf.cell(col_widths[0], 10, txt=line, border=1)
-                if i == 0:
-                    pdf.multi_cell(
-                        col_widths[1], 10 * num_lines, txt=content, border=1)
-                else:
-                    pdf.cell(col_widths[1], 10, txt='', border=1)
-                pdf.ln()
+            pdf.set_font('DejaVu', '', content_font_size)  
+            pdf.multi_cell(cell_width, 10, txt=content, border=1)
+            pdf.ln() 
 
     pdf.output(pdf_path)
 
