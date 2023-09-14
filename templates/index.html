@@ -15,8 +15,8 @@
     <!-- Error modal -->
     <div id="errorModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <h2>Error</h2>
-            <p id="errorMessage">An unexpected error occurred. Please try again later.</p>
+            <h2 class="error-title">Error</h2>
+            <p class="error-title" id="errorMessage">An unexpected error occurred. Please try again later.</p>
             <button id="backToHomeButton" class="buttonHover yellowButton">Back to Home</button>
         </div>
     </div>
@@ -556,11 +556,13 @@
 
         function showErrorModal(message) {
             document.getElementById('errorMessage').innerText = message;
+            document.body.style.overflow = 'hidden';  /* Prevent scrolling when modal is open */
             document.getElementById('errorModal').style.display = 'block';
         }
 
         document.getElementById('backToHomeButton').addEventListener('click', function () {
             // Hide the error modal and show the home page (or any other default state you want)
+            document.body.style.overflow = '';  /* Restore scrolling */
             document.getElementById('errorModal').style.display = 'none';
             document.getElementById('step2').style.display = 'none'; // Hide the progress bar
             // Show the home page or the main page (assuming it's step1 for this example)
