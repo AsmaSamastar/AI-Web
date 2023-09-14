@@ -12,6 +12,16 @@
 
 <body>
 
+    <!-- Error modal -->
+    <div id="errorModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Error</h2>
+            <p id="errorMessage">An unexpected error occurred. Please try again later.</p>
+            <button id="backToHomeButton" class="buttonHover yellowButton">Back to Home</button>
+        </div>
+    </div>
+
+
     <a href="https://sumarizer.com/"><img src="/static/logo.png" alt="Sumarizer Logo" class="logo"></a>
 
     <p class="description-text">Summarize papers and extract critical bioprocessing information including purification
@@ -46,23 +56,25 @@
 
     <div id="step1" class="center-container">
         <h2 class="upload-instructions">Upload your papers</h2>
-    
+
         <div class="pdfUploadContainer">
             <form action="https://coral-app-qzfcm.ondigitalocean.app/upload" enctype="multipart/form-data"
                 id="pdfUploadForm" method="post">
                 <input accept=".pdf" id="pdfUpload" multiple="" name="pdfUpload" onchange="addMoreFiles()"
                     style="display: none;" type="file" />
-                <button class="buttonHover yellowButton action-button" id="addFilesButton" type="button">Select Files</button>
+                <button class="buttonHover yellowButton action-button" id="addFilesButton" type="button">Select
+                    Files</button>
             </form>
-    
+
             <p class="upload-instructions">*Upload up to 2 papers at a time</p>
-    
+
             <ul id="fileList"></ul>
-    
-            <button class="buttonHover yellowButton action-button" type="button" id="uploadAndGenerateSummaryButton">Upload Files and Generate Summary</button>
+
+            <button class="buttonHover yellowButton action-button" type="button"
+                id="uploadAndGenerateSummaryButton">Upload Files and Generate Summary</button>
         </div>
     </div>
-    
+
 
     <div style="display: none;">
         <h3>PDF Text</h3>
@@ -116,7 +128,8 @@
         </div>
 
         <div class="homeButtonContainer">
-            <a href="https://sumarizer.com/"><button id="returnHomeButton" class="buttonHover yellowButton returnHome">Return to Home</button></a>
+            <a href="https://sumarizer.com/"><button id="returnHomeButton"
+                    class="buttonHover yellowButton returnHome">Return to Home</button></a>
         </div>
 
         <div id="emailPopup" class="popup">
@@ -315,11 +328,19 @@
                         'prompt': promptObject.prompt
                     })
                 })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
                     .then(json => {
                         resolve({ textIndex: textIndex, summary: { title: promptObject.title, content: json.summary } });
                     })
-                    .catch(error => reject(error));
+                    .catch(error => {
+                        console.error(error);
+                        showErrorModal("There was an error processing your request. You probably uploaded long papers, try to go back and upload one paper.");
+                    });
             });
         }
 
@@ -531,6 +552,19 @@
         document.getElementById('feedbackForm').addEventListener('submit', function (event) {
             event.preventDefault();
             sendFeedback();
+        });
+
+        function showErrorModal(message) {
+            document.getElementById('errorMessage').innerText = message;
+            document.getElementById('errorModal').style.display = 'block';
+        }
+
+        document.getElementById('backToHomeButton').addEventListener('click', function () {
+            // Hide the error modal and show the home page (or any other default state you want)
+            document.getElementById('errorModal').style.display = 'none';
+            document.getElementById('step2').style.display = 'none'; // Hide the progress bar
+            // Show the home page or the main page (assuming it's step1 for this example)
+            document.getElementById('step1').style.display = 'block';
         });
 
     </script>

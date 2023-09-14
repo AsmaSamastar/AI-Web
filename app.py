@@ -6,7 +6,7 @@ from fpdf import FPDF
 import os
 import base64
 import openai
-from flask import jsonify  
+from flask import jsonify
 from flask import render_template
 from flask import Flask, request, send_file
 from werkzeug.utils import secure_filename
@@ -19,15 +19,14 @@ import tiktoken
 tokenizer = tiktoken.get_encoding("cl100k_base")
 
 
-
 warnings.filterwarnings("ignore", category=UserWarning,
                         module="fpdf.ttfonts", lineno=670)
 
 
 app = Flask(__name__, static_folder='static')
-app.config['UPLOAD_FOLDER'] = 'uploads/'  
+app.config['UPLOAD_FOLDER'] = 'uploads/'
 
-cors = CORS(app, resources={r"/*": {"origins": "*"}})  
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
@@ -111,18 +110,15 @@ def summarize_with_gpt_longText(text, prompt):
         messages.append({"role": "user", "content": paragraph})
         messages.append({"role": "assistant", "content": prompt})
 
-
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo-16k",
             messages=messages
         )
 
-
         answer = response.choices[0].message['content']
         results.append(answer)
 
         messages = []
-
 
     final_output = ' '.join(results)
 
@@ -146,22 +142,25 @@ def summarize_with_gpt(text, prompt):
 
 @app.route('/generateSummary', methods=['POST'])
 def generate_summary():
-    data = request.get_json()
-    text = data['text']
-    prompt = data['prompt']
+    try:
+        data = request.get_json()
+        text = data['text']
+        prompt = data['prompt']
 
-    length_of_tokenized_text = len(tokenizer.encode(text))
+        length_of_tokenized_text = len(tokenizer.encode(text))
 
-    if len(tokenizer.encode(text)) <= max_length:
-        summary = summarize_with_gpt(text, prompt)
-    else:
-        summary = summarize_with_gpt_longText(text, prompt)
+        if len(tokenizer.encode(text)) <= max_length:
+            summary = summarize_with_gpt(text, prompt)
+        else:
+            summary = summarize_with_gpt_longText(text, prompt)
 
-    return jsonify({'summary': summary})
+        return jsonify({'summary': summary})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 def send_email_with_attachment(to_email, subject, content, pdf_path):
-    from_email = 'admin@ai.samastar.co.uk'
+    from_email = 'admin@sumarizer.com'
 
     # Create message
     message = Mail(
@@ -235,18 +234,15 @@ def create_pdf(pdf_path, summaries_data_list):
     pdf.set_font('DejaVu', size=font_size)
 
     col_widths = [80, 110]
-    max_width = col_widths[0] - 2  
+    max_width = col_widths[0] - 2
 
-    
     for summaries_data in summaries_data_list:
         for summary_group in summaries_data:
             title = summary_group['title']
             content = summary_group['content']
 
-
             title_lines = split_text(title, max_width, font_size)
             num_lines = len(title_lines)
-
 
             for i, line in enumerate(title_lines):
                 pdf.cell(col_widths[0], 10, txt=line, border=1)
@@ -256,7 +252,6 @@ def create_pdf(pdf_path, summaries_data_list):
                 else:
                     pdf.cell(col_widths[1], 10, txt='', border=1)
                 pdf.ln()
-
 
     pdf.output(pdf_path)
 
@@ -269,18 +264,15 @@ def send_email():
     email = data['email']
     summaries_data_list = data['summaries']
 
-
     pdf_path = "temp_summaries.pdf"
     create_pdf(pdf_path, summaries_data_list)
-
 
     subject = "Your PDF Summary"
     content = "Hello " + name + ",\n\nHere is your PDF summary."
     status, _, _ = send_email_with_attachment(
         email, subject, content, pdf_path)
 
-    
-    if status == 202:  
+    if status == 202:
         os.remove(pdf_path)
 
     return jsonify({'status': 'ok'})
@@ -305,7 +297,7 @@ def send_feedback():
 
 
 if __name__ == '__main__':
-    if not os.path.exists(app.config['UPLOAD_FOLDER']):  
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
 
     app.run(debug=True)
