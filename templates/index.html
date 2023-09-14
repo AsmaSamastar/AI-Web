@@ -22,40 +22,13 @@
     </div>
 
 
-    <a href="https://sumarizer.com/"><img src="/static/logo.png" alt="Sumarizer Logo" class="logo"></a>
+    <img src="/static/logo.png" alt="Sumarizer Logo" class="logo" id="logoHome">
 
     <p class="description-text">Summarize papers and extract critical bioprocessing information including purification
         and culturing methods in moments saving you time for what truly matters!</p>
 
-    <!-- Step 1: Upload papers -->
-    <!-- <div id="step1">
-
-        <h2>Upload your papers</h2>
-
-        <div class="pdfUploadContainer">
-
-            <form action="https://coral-app-qzfcm.ondigitalocean.app/upload" enctype="multipart/form-data"
-                id="pdfUploadForm" method="post">
-                <input accept=".pdf" id="pdfUpload" multiple="" name="pdfUpload" onchange="addMoreFiles()"
-                    style="display: none;" type="file" />
-                <button class="buttonHover yellowButton" id="addFilesButton" type="button">Select Files</button>
-                <p class="upload-instructions">*Upload up to 3 papers at a time</p>
-            </form>
-
-            <ul id="fileList"></ul>
-
-        </div>
-
-        <div class="pdfUploadContainer">
-            <button class="buttonHover yellowButton" type="button" id="uploadAndGenerateSummaryButton">Upload PDF and
-                Generate
-                Summary</button>
-        </div>
-
-    </div> -->
-
     <div id="step1" class="center-container">
-        <h2 class="upload-instructions">Upload your papers</h2>
+        <h2>Upload your papers</h2>
 
         <div class="pdfUploadContainer">
             <form action="https://coral-app-qzfcm.ondigitalocean.app/upload" enctype="multipart/form-data"
@@ -128,8 +101,7 @@
         </div>
 
         <div class="homeButtonContainer">
-            <a href="https://sumarizer.com/"><button id="returnHomeButton"
-                    class="buttonHover yellowButton returnHome">Return to Home</button></a>
+            <button id="returnHomeButton" class="buttonHover yellowButton returnHome">Return to Home</button>
         </div>
 
         <div id="emailPopup" class="popup">
@@ -561,11 +533,28 @@
         }
 
         document.getElementById('backToHomeButton').addEventListener('click', function () {
-            document.body.style.overflow = ''; 
+            document.body.style.overflow = '';
             document.getElementById('errorModal').style.display = 'none';
-            document.getElementById('step2').style.display = 'none'; 
+            document.getElementById('step2').style.display = 'none';
             document.getElementById('step1').style.display = 'block';
         });
+
+        document.getElementById('logoHome').addEventListener('click', function () {
+            returnToHome();
+        });
+
+        document.getElementById('returnHomeButton').addEventListener('click', function () {
+            returnToHome();
+        });
+
+        function returnToHome() {
+            
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'none';
+            
+            document.getElementById('step1').style.display = 'block';
+        }
+
 
     </script>
 

@@ -621,3 +621,7 @@ h3 {
 .error-title {
     color: red;
 }
+
+.logo {
+    cursor: pointer;
+}

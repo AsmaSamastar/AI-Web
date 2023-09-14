@@ -246,7 +246,8 @@ def create_pdf(pdf_path, summaries_data_list):
 
             pdf.set_font('DejaVu', '', content_font_size)  
             pdf.multi_cell(cell_width, 10, txt=content, border=1)
-            pdf.ln() 
+            
+        pdf.ln(10)
 
     pdf.output(pdf_path)
 
