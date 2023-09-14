@@ -216,6 +216,7 @@ def create_pdf(pdf_path, summaries_data_list):
 
     pdf = PDF()
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
+    pdf.add_font('DejaVu', 'B', 'DejaVuSansCondensed-Bold.ttf', uni=True)
     pdf.add_page()
 
     def split_text(text, max_width, font_size):
