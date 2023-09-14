@@ -274,8 +274,11 @@ def send_email():
 
     if status == 202:
         os.remove(pdf_path)
+        return jsonify({'status': 'ok'})
 
-    return jsonify({'status': 'ok'})
+    else:
+        print(f"Error sending email. Status code: {status}")
+        return jsonify({'status': 'error', 'message': 'Failed to send email'}), 500
 
 
 @app.route('/sendFeedback', methods=['POST'])
