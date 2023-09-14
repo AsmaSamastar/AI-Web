@@ -72,24 +72,24 @@ h3 {
 
 #fileList {
     padding: 0;
-    max-width: 50%;
+    max-width: 30%;
 }
 
 #fileList li {
     position: relative;
-    padding-left: 30px; /* 这会给伪元素预留空间 */
+    padding-left: 30px; 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    list-style-type: none; /* 移除默认的列表样式 */
+    list-style-type: none; 
 }
 
 #fileList li::before {
-    content: '•'; /* 这是一个圆点字符 */
+    content: '•'; 
     position: absolute;
-    left: 10px; /* 调整圆点的位置 */
+    left: 10px; 
     top: 50%;
-    transform: translateY(-50%); /* 垂直居中圆点 */
+    transform: translateY(-50%); 
 }
 
 
