@@ -18,7 +18,6 @@ body {
     margin-bottom: 20px;
 }
 
-#step1,
 #step3 {
     width: 100%;
 }
@@ -31,43 +30,10 @@ h3 {
     margin-bottom: 15px;
 }
 
-.pdfUploadContainer {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-#pdfUploadForm {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-#addFilesButton {
-    border-radius: 50px;
-    padding: 20px 60px;
-    font-size: 22px;
-
-}
-
 .upload-instructions {
     font-size: 0.9rem;
     color: #888;
     margin-top: 10px;
-}
-
-#uploadAndGenerateSummaryButton {
-    margin-top: 10px;
-    border-radius: 50px;
-    padding: 20px 60px;
-    font-size: 22px;
 }
 
 #fileList {
@@ -92,6 +58,43 @@ h3 {
     transform: translateY(-50%); 
 }
 
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+    text-align: justify;
+}
+
+.pdfUploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.action-button {
+    width:500px; 
+    padding: 20px 40px;  
+    font-size: 22px; 
+    border-radius: 50px !important; 
+    margin-top: 10px;
+}
+
+#addFilesButton {
+    width: 300px;  /* 或者您可以选择一个更合适的宽度值 */
+}
+
+
+.upload-instructions, h2 {
+    width: 70%;
+    text-align: center;
+    margin: 10px 0;
+}
+
 
 
 
@@ -112,18 +115,6 @@ h3 {
 .buttonHover:active {
     transform: scale(1);
 }
-
-#addFilesButton {
-    border-radius: 50px;
-    padding: 20px 100px;
-    font-size: 22px;
-
-}
-
-/* #addFilesButton:hover {
-    background-color: #d6dd32;
-    color: white;
-} */
 
 .yellowButton {
     background-color: #d6dd32;
