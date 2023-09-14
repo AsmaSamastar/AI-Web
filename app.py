@@ -193,7 +193,7 @@ def send_email_with_attachment(to_email, subject, content, pdf_path):
 
 
 def create_pdf(pdf_path, summaries_data_list):
-    pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
+    
     class PDF(FPDF):
         def header(self):
             # 选择一个字体：Arial、粗体、大小为15
@@ -215,8 +215,8 @@ def create_pdf(pdf_path, summaries_data_list):
             self.cell(0, 10, 'sumarizer.com', 0, 0, 'R')
 
     pdf = PDF()
+    pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
     pdf.add_page()
-    # pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
 
     def split_text(text, max_width, font_size):
         words = text.split(' ')
