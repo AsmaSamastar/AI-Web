@@ -176,7 +176,7 @@ def send_email_with_attachment(to_email, subject, content, pdf_path):
         FileName('logo.png'),
         FileType('image/png'),
         Disposition('inline'),
-        ContentId='Logo')
+        content_id='Logo')
     message.add_attachment(attachedLogo)
 
     if pdf_path is not None:
