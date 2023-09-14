@@ -178,7 +178,7 @@ def send_email_with_attachment(to_email, subject, content, pdf_path):
         encoded = base64.b64encode(data).decode()
         attachedFile = Attachment(
             FileContent(encoded),
-            FileName('summaries.pdf'),
+            FileName('Sumarizer-Summary.pdf'),
             FileType('application/pdf'),
             Disposition('attachment'))
         message.attachment = attachedFile
@@ -194,11 +194,28 @@ def send_email_with_attachment(to_email, subject, content, pdf_path):
 
 
 def create_pdf(pdf_path, summaries_data_list):
+    class PDF(FPDF):
+        def header(self):
+            # 选择一个字体：Arial、粗体、大小为15
+            self.set_font('DejaVu', 'B', 15)
+            # 移动到右侧
+            self.cell(80)
+            # 标题
+            self.image('static/logo.png', 10, 8, 33)  # 图片位置，10：x坐标，8：y坐标，33：宽度
+            self.ln(20)
+
+        def footer(self):
+            # 设置位置到1.5cm到页面底部
+            self.set_y(-15)
+            # 选择Arial斜体12号
+            self.set_font('DejaVu', 'I', 12)
+            # 页码
+            self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
+            # 网站链接
+            self.cell(0, 10, 'sumarizer.com', 0, 0, 'R')
 
     pdf = FPDF()
     pdf.add_page()
-
-
     pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
 
     def split_text(text, max_width, font_size):

@@ -12,6 +12,7 @@ body {
 }
 
 .description-text {
+    max-width: 80%;
     font-size: 26px;
     color: #555;
     text-align: center;
