@@ -625,3 +625,8 @@ h3 {
 .logo {
     cursor: pointer;
 }
+
+#summaryTable {
+    margin-left: 20px; 
+    margin-right: 20px;
+}
