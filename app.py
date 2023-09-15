@@ -260,6 +260,8 @@ def send_email():
     email = data['email']
     summaries_data_list = data['summaries']
 
+    LIST_ID = "02107067-d725-4613-afc6-1492248dd157"
+
     pdf_path = "temp_summaries.pdf"
     create_pdf(pdf_path, summaries_data_list)
 
@@ -274,11 +276,13 @@ def send_email():
     status, _, _ = send_email_with_attachment(
         email, subject, content, pdf_path)
     
-    # list_id = "YOUR_SENDGRID_LIST_ID"  
-    # add_contact_to_list(name, email, list_id)
+
 
     if status == 202:
         os.remove(pdf_path)
+
+        add_contact_to_list(name, email, LIST_ID)
+
         return jsonify({'status': 'ok'})
 
     else:
