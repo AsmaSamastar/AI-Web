@@ -13,7 +13,7 @@ from werkzeug.utils import secure_filename
 from textwrap import wrap
 
 from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail, Email, Content, Attachment, FileContent, FileName, FileType, Disposition
+from sendgrid.helpers.mail import Mail, To, Email, Content, Attachment, FileContent, FileName, FileType, Disposition, Personalization
 
 import tiktoken
 tokenizer = tiktoken.get_encoding("cl100k_base")
@@ -274,6 +274,9 @@ def send_email():
 
     status, _, _ = send_email_with_attachment(
         email, subject, content, pdf_path)
+    
+    # list_id = "YOUR_SENDGRID_LIST_ID"  
+    # add_contact_to_list(name, email, list_id)
 
     if status == 202:
         os.remove(pdf_path)
@@ -283,6 +286,25 @@ def send_email():
         print(f"Error sending email. Status code: {status}")
         return jsonify({'status': 'error', 'message': 'Failed to send email'}), 500
 
+def add_contact_to_list(name, email, list_id):
+    try:
+        sendgrid_client = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+
+        data = {
+            "list_ids": [list_id],
+            "contacts": [{
+                "email": email,
+                "first_name": name
+            }]
+        }
+
+        response = sendgrid_client.client.marketing.contacts.put(request_body=data)
+
+        return response.status_code, response.body
+
+    except Exception as e:
+        print(f"Error adding contact to list: {e}")
+        return None, None
 
 @app.route('/sendFeedback', methods=['POST'])
 def send_feedback():
@@ -315,9 +337,23 @@ def send_feedback():
         return jsonify({'status': 'error', 'message': str(e)})
 
 
+def get_all_lists():
+    try:
+        sendgrid_client = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+        response = sendgrid_client.client.marketing.lists.get()
+
+        # 解析响应内容
+        lists_data = response.json()
+        for list_info in lists_data["results"]:
+            print(f"List Name: {list_info['name']}, List ID: {list_info['id']}")
+
+    except Exception as e:
+        print(f"Error fetching lists: {e}")
+
 
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
 
     app.run(debug=True)
+    get_all_lists()
