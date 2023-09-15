@@ -355,6 +355,8 @@ if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
 
-    get_all_lists()
+    # 只在主进程中执行get_all_lists()
+    if os.environ.get("WERKZEUG_RUN_MAIN") == "true" or os.environ.get("WERKZEUG_RUN_MAIN") is None:
+        get_all_lists()  # 先执行这个函数，打印所有的联系人列表ID
 
     app.run(debug=True)
