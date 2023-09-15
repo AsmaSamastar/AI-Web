@@ -40,6 +40,8 @@ def home():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    get_all_lists()  # 先执行这个函数，打印所有的联系人列表ID
+    
     if 'pdfUpload' not in request.files:
         return 'No file part', 400
     files = request.files.getlist('pdfUpload')
@@ -168,16 +170,16 @@ def send_email_with_attachment(to_email, subject, content, pdf_path):
         subject=subject,
         html_content=content)
 
-    with open('static/logo.png', 'rb') as f:
-        data = f.read()
-    encoded = base64.b64encode(data).decode()
-    attachedLogo = Attachment(
-        FileContent(encoded),
-        FileName('logo.png'),
-        FileType('image/png'),
-        Disposition('inline'),
-        content_id='Logo')
-    message.add_attachment(attachedLogo)
+    # with open('static/logo.png', 'rb') as f:
+    #     data = f.read()
+    # encoded = base64.b64encode(data).decode()
+    # attachedLogo = Attachment(
+    #     FileContent(encoded),
+    #     FileName('logo.png'),
+    #     FileType('image/png'),
+    #     Disposition('inline'),
+    #     content_id='Logo')
+    # message.add_attachment(attachedLogo)
 
     if pdf_path is not None:
         with open(pdf_path, 'rb') as f:
@@ -266,7 +268,7 @@ def send_email():
     subject = "Your PDF Summary"
 
     content = f"""
-    <img src="cid:Logo" alt="Sumarizer Logo">
+    # <img src="cid:Logo" alt="Sumarizer Logo">
     <p>Hello {name},</p>
     <p>Here is your PDF summary.</p>
     <a href="https://sumarizer.com">https://sumarizer.com</a>
@@ -354,9 +356,5 @@ def get_all_lists():
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
-
-    # 只在主进程中执行get_all_lists()
-    if os.environ.get("WERKZEUG_RUN_MAIN") == "true" or os.environ.get("WERKZEUG_RUN_MAIN") is None:
-        get_all_lists()  # 先执行这个函数，打印所有的联系人列表ID
 
     app.run(debug=True)
