@@ -268,7 +268,7 @@ def send_email():
     subject = "Your PDF Summary"
 
     content = f"""
-    <p>Hello {name},</p>
+    <p>Hi {name},</p>
     <p>Here is your PDF summary.</p>
     <a href="https://sumarizer.com">https://sumarizer.com</a>
     """
