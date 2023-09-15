@@ -40,8 +40,6 @@ def home():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    get_all_lists()  # 先执行这个函数，打印所有的联系人列表ID
-    
     if 'pdfUpload' not in request.files:
         return 'No file part', 400
     files = request.files.getlist('pdfUpload')
@@ -207,7 +205,7 @@ def create_pdf(pdf_path, summaries_data_list):
     class PDF(FPDF):
         def header(self):
 
-            self.set_font('DejaVu', 'B', 15)
+            self.set_font('Poppins', 'B', 15)
 
             self.cell(80)
 
@@ -218,7 +216,7 @@ def create_pdf(pdf_path, summaries_data_list):
 
             self.set_y(-15)
 
-            self.set_font('DejaVu', 'I', 12)
+            self.set_font('Poppins', 'I', 12)
 
             self.cell(0, 10, 'Page ' + str(self.page_no()) +
                       ' of {nb}', 0, 0, 'C')
@@ -227,9 +225,9 @@ def create_pdf(pdf_path, summaries_data_list):
 
     pdf = PDF()
     pdf.alias_nb_pages()
-    pdf.add_font('DejaVu', '', 'DejaVuSansCondensed.ttf', uni=True)
-    pdf.add_font('DejaVu', 'B', 'DejaVuSansCondensed-Bold.ttf', uni=True)
-    pdf.add_font('DejaVu', 'I', 'DejaVuSerifCondensed-Italic.ttf', uni=True)
+    pdf.add_font('Poppins', '', 'Poppins-Regular.ttf', uni=True)
+    pdf.add_font('Poppins', 'B', 'Poppins-Bold.ttf', uni=True)
+    pdf.add_font('Poppins', 'I', 'Poppins-Italic.ttf', uni=True)
     pdf.add_page()
 
     content_font_size = 11
@@ -242,11 +240,11 @@ def create_pdf(pdf_path, summaries_data_list):
             title = summary_group['title']
             content = summary_group['content']
 
-            pdf.set_font('DejaVu', 'B', title_font_size)
+            pdf.set_font('Poppins', 'B', title_font_size)
             pdf.cell(cell_width, 10, txt=title, border=1)
             pdf.ln() 
 
-            pdf.set_font('DejaVu', '', content_font_size)  
+            pdf.set_font('Poppins', '', content_font_size)  
             pdf.multi_cell(cell_width, 10, txt=content, border=1)
             
         pdf.ln(10)
@@ -268,7 +266,6 @@ def send_email():
     subject = "Your PDF Summary"
 
     content = f"""
-    # <img src="cid:Logo" alt="Sumarizer Logo">
     <p>Hello {name},</p>
     <p>Here is your PDF summary.</p>
     <a href="https://sumarizer.com">https://sumarizer.com</a>
@@ -337,21 +334,6 @@ def send_feedback():
         return jsonify({'status': 'ok'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
-
-
-def get_all_lists():
-    try:
-        sendgrid_client = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
-        response = sendgrid_client.client.marketing.lists.get()
-
-        # 解析响应内容
-        lists_data = response.json()
-        for list_info in lists_data["results"]:
-            print(f"List Name: {list_info['name']}, List ID: {list_info['id']}")
-
-    except Exception as e:
-        print(f"Error fetching lists: {e}")
-
 
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):

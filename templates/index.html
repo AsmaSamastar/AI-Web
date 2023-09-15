@@ -114,6 +114,11 @@
                     <input type="email" id="email" name="email" placeholder="Email"><br>
                     <input type="submit" value="Send Summary">
                 </form>
+                <!-- Added message -->
+                <p style="font-size: small; color: grey;">
+                    *By entering your details you agree to receive future emails from Sumarizer. We don't share your
+                    data with any third party. You can unsubscribe at any time.
+                </p>
             </div>
         </div>
 
@@ -548,10 +553,10 @@
         });
 
         function returnToHome() {
-            
+
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'none';
-            
+
             document.getElementById('step1').style.display = 'block';
         }
 
